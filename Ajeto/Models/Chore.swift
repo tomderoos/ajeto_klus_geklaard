@@ -10,6 +10,8 @@ final class Chore {
     var isDone: Bool = false
     var createdAt: Date = Date.now
 
+    var room: Room?
+
     @Relationship(deleteRule: .cascade, inverse: \ChorePhoto.chore)
     var photos: [ChorePhoto] = []
 

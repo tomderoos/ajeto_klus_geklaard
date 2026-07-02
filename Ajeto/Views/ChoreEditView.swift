@@ -5,7 +5,7 @@ import UIKit
 
 struct ChoreEditView: View {
     enum Mode {
-        case create
+        case create(prefilledRoomID: PersistentIdentifier?)
         case edit(Chore)
     }
 
@@ -13,9 +13,11 @@ struct ChoreEditView: View {
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Query(sort: \Room.sortOrder) private var rooms: [Room]
 
     @State private var title = ""
     @State private var details = ""
+    @State private var selectedRoomID: PersistentIdentifier?
     @State private var hasSchedule = false
     @State private var scheduledDate = Calendar.current.startOfDay(for: .now)
     @State private var startTime = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: .now) ?? .now
@@ -35,6 +37,10 @@ struct ChoreEditView: View {
         UIImagePickerController.isSourceTypeAvailable(.camera)
     }
 
+    private var canSave: Bool {
+        !title.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+
     var body: some View {
         ZStack {
             AjetoColor.paper.ignoresSafeArea()
@@ -43,6 +49,13 @@ struct ChoreEditView: View {
                     Section(title: "Klus") {
                         Field(placeholder: "Titel (bv. voordeur schilderen)", text: $title)
                         MultilineField(placeholder: "Beschrijving", text: $details)
+                    }
+
+                    if !rooms.isEmpty {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Ruimte").ajEyebrow(AjetoColor.muted)
+                            RoomPicker(rooms: rooms, selectedID: $selectedRoomID)
+                        }
                     }
 
                     Section(title: "Planning") {
@@ -130,21 +143,22 @@ struct ChoreEditView: View {
         .onAppear(perform: loadFromExisting)
     }
 
-    private var canSave: Bool {
-        !title.trimmingCharacters(in: .whitespaces).isEmpty
-    }
-
     private func loadFromExisting() {
         guard !didLoad else { return }
         didLoad = true
-        guard let chore = editingChore else { return }
-        title = chore.title
-        details = chore.details
-        if let start = chore.scheduledStart {
-            hasSchedule = true
-            scheduledDate = Calendar.current.startOfDay(for: start)
-            startTime = start
-            endTime = chore.scheduledEnd ?? start.addingTimeInterval(3600)
+        switch mode {
+        case .create(let prefilledRoomID):
+            selectedRoomID = prefilledRoomID
+        case .edit(let chore):
+            title = chore.title
+            details = chore.details
+            selectedRoomID = chore.room?.persistentModelID
+            if let start = chore.scheduledStart {
+                hasSchedule = true
+                scheduledDate = Calendar.current.startOfDay(for: start)
+                startTime = start
+                endTime = chore.scheduledEnd ?? start.addingTimeInterval(3600)
+            }
         }
     }
 
@@ -181,6 +195,7 @@ struct ChoreEditView: View {
         }
         chore.title = title.trimmingCharacters(in: .whitespaces)
         chore.details = details.trimmingCharacters(in: .whitespacesAndNewlines)
+        chore.room = rooms.first { $0.persistentModelID == selectedRoomID }
         if hasSchedule {
             chore.scheduledStart = combine(date: scheduledDate, time: startTime)
             chore.scheduledEnd = combine(date: scheduledDate, time: endTime)
@@ -225,6 +240,53 @@ private struct Section<Content: View>: View {
             }
             .ajCard(padding: 16)
         }
+    }
+}
+
+private struct RoomPicker: View {
+    let rooms: [Room]
+    @Binding var selectedID: PersistentIdentifier?
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                Chip(label: "Geen", icon: nil, selected: selectedID == nil) {
+                    selectedID = nil
+                }
+                ForEach(rooms) { room in
+                    Chip(label: room.name, icon: room.iconName, selected: selectedID == room.persistentModelID) {
+                        selectedID = room.persistentModelID
+                    }
+                }
+            }
+            .padding(.vertical, 2)
+        }
+    }
+}
+
+private struct Chip: View {
+    let label: String
+    let icon: String?
+    let selected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                if let icon {
+                    Image(systemName: icon).font(.system(size: 11, weight: .semibold))
+                }
+                Text(label).font(AjetoFont.body(13, weight: .semibold))
+            }
+            .foregroundStyle(selected ? AjetoColor.ink : AjetoColor.muted)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(selected ? AjetoColor.green : AjetoColor.surface, in: Capsule())
+            .overlay(
+                Capsule().stroke(selected ? .clear : AjetoColor.border, lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
     }
 }
 

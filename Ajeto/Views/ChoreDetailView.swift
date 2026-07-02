@@ -18,6 +18,16 @@ struct ChoreDetailView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         StatusToggle(chore: chore)
 
+                        if let room = chore.room {
+                            InfoRow(icon: "square.grid.2x2", label: "Ruimte") {
+                                HStack(spacing: 6) {
+                                    Image(systemName: room.iconName)
+                                        .font(.system(size: 13, weight: .semibold))
+                                    Text(room.name)
+                                }
+                            }
+                        }
+
                         if let start = chore.scheduledStart {
                             InfoRow(icon: "calendar", label: "Planning") {
                                 if let end = chore.scheduledEnd {

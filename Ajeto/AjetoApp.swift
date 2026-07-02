@@ -3,10 +3,37 @@ import SwiftData
 
 @main
 struct AjetoApp: App {
+    let container: ModelContainer
+
+    init() {
+        do {
+            container = try ModelContainer(for: Chore.self, ChorePhoto.self, Room.self)
+            Self.seedDefaultRoomsIfNeeded(container.mainContext)
+        } catch {
+            fatalError("Kon SwiftData-container niet aanmaken: \(error)")
+        }
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView()
         }
-        .modelContainer(for: [Chore.self, ChorePhoto.self])
+        .modelContainer(container)
+    }
+
+    @MainActor
+    private static func seedDefaultRoomsIfNeeded(_ context: ModelContext) {
+        var descriptor = FetchDescriptor<Room>()
+        descriptor.fetchLimit = 1
+        do {
+            let existing = try context.fetch(descriptor)
+            guard existing.isEmpty else { return }
+            for (idx, seed) in RoomDefaults.seeds.enumerated() {
+                context.insert(Room(name: seed.name, iconName: seed.iconName, sortOrder: idx))
+            }
+            try context.save()
+        } catch {
+            // eerste keer opstarten met een lege DB kan hier zonder problemen falen
+        }
     }
 }

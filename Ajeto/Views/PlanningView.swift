@@ -90,13 +90,15 @@ private struct ScheduledRow: View {
     var body: some View {
         HStack(spacing: 14) {
             timeBlock
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(chore.title.isEmpty ? "Zonder titel" : chore.title)
                     .font(AjetoFont.display(16, weight: .semibold))
                     .tracking(-0.3)
                     .foregroundStyle(chore.isDone ? AjetoColor.muted : AjetoColor.ink)
                     .strikethrough(chore.isDone)
-                if !chore.details.isEmpty {
+                if let room = chore.room {
+                    RoomBadge(room: room, compact: true)
+                } else if !chore.details.isEmpty {
                     Text(chore.details)
                         .font(AjetoFont.body(13, weight: .regular))
                         .foregroundStyle(AjetoColor.muted)
