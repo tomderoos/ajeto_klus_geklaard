@@ -9,6 +9,7 @@ struct ChoreListView: View {
     @State private var selectedRoomID: PersistentIdentifier? = nil
     @State private var showingNew = false
     @State private var showingRooms = false
+    @State private var showingNewRoom = false
 
     private var filteredChores: [Chore] {
         let base: [Chore]
@@ -38,9 +39,11 @@ struct ChoreListView: View {
             ZStack {
                 AjetoColor.paper.ignoresSafeArea()
                 VStack(spacing: 0) {
-                    if !rooms.isEmpty {
-                        RoomFilterBar(rooms: rooms, selectedID: $selectedRoomID)
-                    }
+                    RoomFilterBar(
+                        rooms: rooms,
+                        selectedID: $selectedRoomID,
+                        onAddRoom: { showingNewRoom = true }
+                    )
                     if filteredChores.isEmpty {
                         EmptyState(roomName: selectedRoomName)
                     } else {
@@ -107,6 +110,11 @@ struct ChoreListView: View {
             .sheet(isPresented: $showingRooms) {
                 RoomsSheetView()
             }
+            .sheet(isPresented: $showingNewRoom) {
+                NavigationStack {
+                    RoomEditView(mode: .create(nextSortOrder: (rooms.last?.sortOrder ?? -1) + 1))
+                }
+            }
         }
     }
 
@@ -121,22 +129,49 @@ struct ChoreListView: View {
 private struct RoomFilterBar: View {
     let rooms: [Room]
     @Binding var selectedID: PersistentIdentifier?
+    let onAddRoom: () -> Void
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                Chip(label: "Alle", icon: nil, selected: selectedID == nil) {
-                    selectedID = nil
-                }
-                ForEach(rooms) { room in
-                    Chip(label: room.name, icon: room.iconName, selected: selectedID == room.persistentModelID) {
-                        selectedID = (selectedID == room.persistentModelID) ? nil : room.persistentModelID
+                if !rooms.isEmpty {
+                    Chip(label: "Alle", icon: nil, selected: selectedID == nil) {
+                        selectedID = nil
+                    }
+                    ForEach(rooms) { room in
+                        Chip(label: room.name, icon: room.iconName, selected: selectedID == room.persistentModelID) {
+                            selectedID = (selectedID == room.persistentModelID) ? nil : room.persistentModelID
+                        }
                     }
                 }
+                AddRoomChip(action: onAddRoom)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
         }
+    }
+}
+
+private struct AddRoomChip: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                Image(systemName: "plus")
+                    .font(.system(size: 11, weight: .bold))
+                Text("Nieuwe ruimte")
+                    .font(AjetoFont.body(13, weight: .semibold))
+            }
+            .foregroundStyle(AjetoColor.blue)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(AjetoColor.sky, in: Capsule())
+            .overlay(
+                Capsule().stroke(AjetoColor.blue.opacity(0.25), lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
     }
 }
 
