@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1EAC0F86CF1BA3B4B20D6CEE /* SpaceGrotesk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98392756859CF05D1BC25AC4 /* SpaceGrotesk.ttf */; };
 		24F7062E5CD151F1F1E8FF38 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04FBEF2E363477442D9F287 /* Chore.swift */; };
 		2AC44950CBE874570254587C /* ChorePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF471C884A5AFAE8FE86E9F /* ChorePhoto.swift */; };
+		2D86457D7659FD9AE49CE4E2 /* AjetoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50156BA29EFAE15EAAC60EC5 /* AjetoTheme.swift */; };
 		4497CA76E81924D6CD8525BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD39F4461869D9082D6BE36 /* Assets.xcassets */; };
 		465C31BDCAD4CC29F074FDB9 /* ChoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33148AE9A11D37B4C16A083A /* ChoreEditView.swift */; };
+		4EB2CB41610030E2F256136C /* HankenGrotesk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87506B2714CCC9E35AF3CA07 /* HankenGrotesk.ttf */; };
 		5212B1577AE2E44B467FEB14 /* PhotoGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A7104BD16AFA7777B7F97 /* PhotoGalleryView.swift */; };
 		5F57BBAB6CC17CF33C434112 /* PlanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7256C3D5B5F518D24EEAE188 /* PlanningView.swift */; };
 		8B8A43F5FD8781F72573C82A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */; };
 		9B6D935076B20626489A7143 /* PhotoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E489305DC9140A49604C3F3 /* PhotoStorage.swift */; };
+		9B9B068081EBB25F6BEBBAF8 /* AjetoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A8080EF61702A541139208 /* AjetoIcon.swift */; };
 		9BB69F25F829164B22E9E183 /* ChoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714429899D5E95E32E62D7F7 /* ChoreDetailView.swift */; };
 		AF21FA28F0A9DA532DA47348 /* ChoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F9CD9569AAE322F6C2895 /* ChoreListView.swift */; };
 		E063C3B895DAAE6C4D29A84E /* AjetoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BF23108035A6E1C9E8BFC7 /* AjetoApp.swift */; };
@@ -24,11 +28,15 @@
 /* Begin PBXFileReference section */
 		2E8A7104BD16AFA7777B7F97 /* PhotoGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryView.swift; sourceTree = "<group>"; };
 		33148AE9A11D37B4C16A083A /* ChoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreEditView.swift; sourceTree = "<group>"; };
+		50156BA29EFAE15EAAC60EC5 /* AjetoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoTheme.swift; sourceTree = "<group>"; };
 		714429899D5E95E32E62D7F7 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
 		7256C3D5B5F518D24EEAE188 /* PlanningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningView.swift; sourceTree = "<group>"; };
 		7CF471C884A5AFAE8FE86E9F /* ChorePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChorePhoto.swift; sourceTree = "<group>"; };
+		87506B2714CCC9E35AF3CA07 /* HankenGrotesk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HankenGrotesk.ttf; sourceTree = "<group>"; };
 		8E489305DC9140A49604C3F3 /* PhotoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStorage.swift; sourceTree = "<group>"; };
 		938545DDD0C69EE338DF3AF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		98392756859CF05D1BC25AC4 /* SpaceGrotesk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGrotesk.ttf; sourceTree = "<group>"; };
+		98A8080EF61702A541139208 /* AjetoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoIcon.swift; sourceTree = "<group>"; };
 		A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		ADD39F4461869D9082D6BE36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE9C130A39B38CFB378803EE /* CameraPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPicker.swift; sourceTree = "<group>"; };
@@ -83,11 +91,22 @@
 				B4BF23108035A6E1C9E8BFC7 /* AjetoApp.swift */,
 				ADD39F4461869D9082D6BE36 /* Assets.xcassets */,
 				938545DDD0C69EE338DF3AF4 /* Info.plist */,
+				BCD99573CEB2E9A342D9F7DB /* Design */,
+				D5C92A9C0FF8E356D941A7B5 /* Fonts */,
 				D458F4CAD6D5FA189F4C09FE /* Models */,
 				3F56B86216ABDFECB8BA84A7 /* Storage */,
 				131DFF976EE8912402350C4E /* Views */,
 			);
 			path = Ajeto;
+			sourceTree = "<group>";
+		};
+		BCD99573CEB2E9A342D9F7DB /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				98A8080EF61702A541139208 /* AjetoIcon.swift */,
+				50156BA29EFAE15EAAC60EC5 /* AjetoTheme.swift */,
+			);
+			path = Design;
 			sourceTree = "<group>";
 		};
 		D458F4CAD6D5FA189F4C09FE /* Models */ = {
@@ -97,6 +116,15 @@
 				7CF471C884A5AFAE8FE86E9F /* ChorePhoto.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D5C92A9C0FF8E356D941A7B5 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				87506B2714CCC9E35AF3CA07 /* HankenGrotesk.ttf */,
+				98392756859CF05D1BC25AC4 /* SpaceGrotesk.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,7 +158,7 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					6C5E72E8A7FC9399EE762874 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 7K85BU47R9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -160,6 +188,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4497CA76E81924D6CD8525BA /* Assets.xcassets in Resources */,
+				4EB2CB41610030E2F256136C /* HankenGrotesk.ttf in Resources */,
+				1EAC0F86CF1BA3B4B20D6CEE /* SpaceGrotesk.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +201,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E063C3B895DAAE6C4D29A84E /* AjetoApp.swift in Sources */,
+				9B9B068081EBB25F6BEBBAF8 /* AjetoIcon.swift in Sources */,
+				2D86457D7659FD9AE49CE4E2 /* AjetoTheme.swift in Sources */,
 				F6CA487F2F7D9B4F6CC0EEBC /* CameraPicker.swift in Sources */,
 				24F7062E5CD151F1F1E8FF38 /* Chore.swift in Sources */,
 				9BB69F25F829164B22E9E183 /* ChoreDetailView.swift in Sources */,
@@ -252,11 +284,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7K85BU47R9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ajeto/Info.plist;
@@ -344,11 +375,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7K85BU47R9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ajeto/Info.plist;
