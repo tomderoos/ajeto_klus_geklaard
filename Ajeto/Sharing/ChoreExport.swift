@@ -2,15 +2,21 @@ import Foundation
 import UIKit
 
 enum ChoreExport {
-    /// Verpakt een klus in een tijdelijk `.ajeto`-bestand en geeft de URL terug.
-    /// Foto's worden hercomprimeerd naar max. 1600 px langste zijde, JPEG 0.75.
+    /// Verpakt één klus als bundle in een tijdelijk `.ajeto`-bestand.
     static func writeTempFile(for chore: Chore) throws -> URL {
-        let snapshot = try makeSnapshot(from: chore)
-        let data = try ChoreSnapshot.encoder.encode(snapshot)
+        let name = safeFilename(chore.title.isEmpty ? "Klus" : chore.title)
+        return try writeTempFile(for: [chore], filename: name)
+    }
 
-        let name = safeFilename(chore.title)
+    /// Verpakt meerdere klussen als bundle. Foto's worden hercomprimeerd naar
+    /// max. 1600 px langste zijde, JPEG 0.75, zodat de file deelbaar blijft.
+    static func writeTempFile(for chores: [Chore], filename: String) throws -> URL {
+        let snapshots = chores.map { makeSnapshot(from: $0) }
+        let bundle = ChoresBundle(exportedAt: .now, chores: snapshots)
+        let data = try ChoreSnapshot.encoder.encode(bundle)
+
         let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent(name)
+            .appendingPathComponent(filename)
             .appendingPathExtension(ChoreSnapshot.fileExtension)
 
         try? FileManager.default.removeItem(at: url)
@@ -18,7 +24,7 @@ enum ChoreExport {
         return url
     }
 
-    private static func makeSnapshot(from chore: Chore) throws -> ChoreSnapshot {
+    private static func makeSnapshot(from chore: Chore) -> ChoreSnapshot {
         let photos: [ChoreSnapshot.PhotoSnapshot] = chore.photos.compactMap { photo in
             guard let image = PhotoStorage.load(photo.filename),
                   let resized = downscale(image, maxDimension: 1600),
@@ -40,7 +46,7 @@ enum ChoreExport {
         )
     }
 
-    private static func safeFilename(_ raw: String) -> String {
+    static func safeFilename(_ raw: String) -> String {
         let base = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         let cleaned = base.isEmpty ? "Klus" : base
         return cleaned

@@ -19,6 +19,7 @@
 		5212B1577AE2E44B467FEB14 /* PhotoGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A7104BD16AFA7777B7F97 /* PhotoGalleryView.swift */; };
 		5F57BBAB6CC17CF33C434112 /* PlanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7256C3D5B5F518D24EEAE188 /* PlanningView.swift */; };
 		8B8A43F5FD8781F72573C82A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */; };
+		8E27D2B327EC600ABF6674E4 /* BulkShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468A1C5A6840368D1B16BF07 /* BulkShareSheet.swift */; };
 		92E6F10BD0EEAA843403853D /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41136B7A16A39902315D75CE /* Room.swift */; };
 		9B445343AD35BEAA50F380CD /* ImportChorePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9EFC235B7DA781999A7801 /* ImportChorePreviewView.swift */; };
 		9B6D935076B20626489A7143 /* PhotoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E489305DC9140A49604C3F3 /* PhotoStorage.swift */; };
@@ -40,6 +41,7 @@
 		33148AE9A11D37B4C16A083A /* ChoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreEditView.swift; sourceTree = "<group>"; };
 		3B9EFC235B7DA781999A7801 /* ImportChorePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportChorePreviewView.swift; sourceTree = "<group>"; };
 		41136B7A16A39902315D75CE /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		468A1C5A6840368D1B16BF07 /* BulkShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkShareSheet.swift; sourceTree = "<group>"; };
 		50156BA29EFAE15EAAC60EC5 /* AjetoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoTheme.swift; sourceTree = "<group>"; };
 		6C9F38D677865D94AE9C553C /* RoomEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEditView.swift; sourceTree = "<group>"; };
 		714429899D5E95E32E62D7F7 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		131DFF976EE8912402350C4E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				468A1C5A6840368D1B16BF07 /* BulkShareSheet.swift */,
 				AE9C130A39B38CFB378803EE /* CameraPicker.swift */,
 				714429899D5E95E32E62D7F7 /* ChoreDetailView.swift */,
 				33148AE9A11D37B4C16A083A /* ChoreEditView.swift */,
@@ -235,6 +238,7 @@
 				E063C3B895DAAE6C4D29A84E /* AjetoApp.swift in Sources */,
 				9B9B068081EBB25F6BEBBAF8 /* AjetoIcon.swift in Sources */,
 				2D86457D7659FD9AE49CE4E2 /* AjetoTheme.swift in Sources */,
+				8E27D2B327EC600ABF6674E4 /* BulkShareSheet.swift in Sources */,
 				F6CA487F2F7D9B4F6CC0EEBC /* CameraPicker.swift in Sources */,
 				24F7062E5CD151F1F1E8FF38 /* Chore.swift in Sources */,
 				9BB69F25F829164B22E9E183 /* ChoreDetailView.swift in Sources */,

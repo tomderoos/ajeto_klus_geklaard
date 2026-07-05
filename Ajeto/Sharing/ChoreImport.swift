@@ -8,27 +8,35 @@ enum ChoreImport {
         case decodeFailed
     }
 
-    /// Leest een `.ajeto`-bestand van schijf en levert de snapshot terug.
-    /// Ondersteunt zowel gewone URLs als security-scoped file URLs (bv. uit
-    /// Files-app / iMessage).
-    static func readSnapshot(from url: URL) throws -> ChoreSnapshot {
+    /// Leest een `.ajeto`-bestand van schijf en levert altijd een ChoresBundle
+    /// terug — ook als het een oude losse ChoreSnapshot (v1) is, die dan
+    /// gepromoveerd wordt naar een bundle met 1 klus.
+    static func readBundle(from url: URL) throws -> ChoresBundle {
         let didStart = url.startAccessingSecurityScopedResource()
         defer { if didStart { url.stopAccessingSecurityScopedResource() } }
 
         guard let data = try? Data(contentsOf: url) else {
             throw Error.unreadable
         }
-        do {
-            return try ChoreSnapshot.decoder.decode(ChoreSnapshot.self, from: data)
-        } catch {
-            throw Error.decodeFailed
+        if let bundle = try? ChoreSnapshot.decoder.decode(ChoresBundle.self, from: data) {
+            return bundle
+        }
+        if let legacy = try? ChoreSnapshot.decoder.decode(ChoreSnapshot.self, from: data) {
+            return ChoresBundle(exportedAt: legacy.createdAt, chores: [legacy])
+        }
+        throw Error.decodeFailed
+    }
+
+    /// Zet alle klussen uit de bundle om naar echte Chore + ChorePhoto's in de
+    /// gegeven context. Ruimtes worden gematcht op naam (case-insensitief);
+    /// onbekende ruimtes worden aangemaakt met het meegestuurde icoon.
+    @MainActor
+    static func insert(_ bundle: ChoresBundle, into context: ModelContext) {
+        for snapshot in bundle.chores {
+            insert(snapshot, into: context)
         }
     }
 
-    /// Zet een snapshot om in een echte Chore + ChorePhoto's in de gegeven context.
-    /// Ruimte wordt gematcht op naam (case-insensitief); als 'ie niet bestaat en
-    /// er zit wél een naam in de snapshot, dan wordt de ruimte automatisch
-    /// aangemaakt met het meegestuurde icoon.
     @MainActor
     static func insert(_ snapshot: ChoreSnapshot, into context: ModelContext) {
         let chore = Chore(
@@ -64,7 +72,6 @@ enum ChoreImport {
             return match
         }
 
-        // Ruimte niet gevonden — automatisch aanmaken achter de bestaande ruimtes.
         let allRooms = (try? context.fetch(FetchDescriptor<Room>())) ?? []
         let nextOrder = (allRooms.map(\.sortOrder).max() ?? -1) + 1
         let room = Room(

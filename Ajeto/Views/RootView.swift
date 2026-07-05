@@ -20,9 +20,9 @@ struct RootView: View {
         .onOpenURL(perform: handleIncoming)
         .sheet(item: $pendingImport) { pending in
             ImportChorePreviewView(
-                snapshot: pending.snapshot,
+                bundle: pending.bundle,
                 onConfirm: {
-                    ChoreImport.insert(pending.snapshot, into: context)
+                    ChoreImport.insert(pending.bundle, into: context)
                     try? context.save()
                     pendingImport = nil
                 },
@@ -44,8 +44,8 @@ struct RootView: View {
 
     private func handleIncoming(_ url: URL) {
         do {
-            let snapshot = try ChoreImport.readSnapshot(from: url)
-            pendingImport = PendingImport(snapshot: snapshot)
+            let bundle = try ChoreImport.readBundle(from: url)
+            pendingImport = PendingImport(bundle: bundle)
         } catch {
             importErrorMessage = "Het gedeelde bestand kon niet worden ingelezen."
         }
@@ -81,7 +81,7 @@ struct RootView: View {
 
 struct PendingImport: Identifiable {
     let id = UUID()
-    let snapshot: ChoreSnapshot
+    let bundle: ChoresBundle
 }
 
 #Preview {

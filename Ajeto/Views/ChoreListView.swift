@@ -10,6 +10,7 @@ struct ChoreListView: View {
     @State private var showingNew = false
     @State private var showingRooms = false
     @State private var showingNewRoom = false
+    @State private var bulkShare: BulkSharePayload?
 
     private var filteredChores: [Chore] {
         let base: [Chore]
@@ -77,6 +78,13 @@ struct ChoreListView: View {
                 ToolbarItemGroup(placement: .primaryAction) {
                     Menu {
                         Button {
+                            startBulkShare()
+                        } label: {
+                            Label("Alle klussen delen (\(allChores.count))", systemImage: "square.and.arrow.up")
+                        }
+                        .disabled(allChores.isEmpty)
+
+                        Button {
                             showingRooms = true
                         } label: {
                             Label("Ruimtes beheren", systemImage: "square.grid.2x2")
@@ -115,7 +123,29 @@ struct ChoreListView: View {
                     RoomEditView(mode: .create(nextSortOrder: (rooms.last?.sortOrder ?? -1) + 1))
                 }
             }
+            .sheet(item: $bulkShare) { payload in
+                BulkShareSheet(payload: payload)
+            }
         }
+    }
+
+    private func startBulkShare() {
+        guard !allChores.isEmpty else { return }
+        let now = Date.now
+        let dateString = Self.bulkFilenameDate(from: now)
+        let filename = "Ajeto klussen \(dateString)"
+        do {
+            let url = try ChoreExport.writeTempFile(for: allChores, filename: filename)
+            bulkShare = BulkSharePayload(url: url, count: allChores.count, exportedAt: now)
+        } catch {
+            // Silently negeren — sheet gaat gewoon niet open.
+        }
+    }
+
+    private static func bulkFilenameDate(from date: Date) -> String {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd HH.mm"
+        return f.string(from: date)
     }
 
     private func delete(_ chore: Chore) {

@@ -24,6 +24,15 @@ struct ChoreSnapshot: Codable {
     }
 }
 
+/// Verpakking rond één of meer klus-snapshots plus exportmoment. Dit is het
+/// enige formaat dat we schrijven vanaf schema v2; oude v1-losse-snapshots
+/// worden bij inlezen gepromoveerd naar een bundle van 1.
+struct ChoresBundle: Codable {
+    var schemaVersion: Int = 2
+    var exportedAt: Date
+    var chores: [ChoreSnapshot]
+}
+
 extension ChoreSnapshot {
     static let fileExtension = "ajeto"
     static let uti = "nl.tomderoos.Ajeto.klus"
