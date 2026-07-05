@@ -34,6 +34,23 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
+        UTExportedTypeDeclarations:
+          - UTTypeIdentifier: nl.tomderoos.Ajeto.klus
+            UTTypeDescription: Ajeto klus
+            UTTypeConformsTo:
+              - public.data
+              - public.content
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - ajeto
+              public.mime-type:
+                - application/x-ajeto-klus
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Ajeto klus
+            CFBundleTypeRole: Editor
+            LSHandlerRank: Owner
+            LSItemContentTypes:
+              - nl.tomderoos.Ajeto.klus
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: nl.tomderoos.Ajeto

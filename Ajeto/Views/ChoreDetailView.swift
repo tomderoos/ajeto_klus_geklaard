@@ -4,6 +4,8 @@ import SwiftData
 struct ChoreDetailView: View {
     @Bindable var chore: Chore
     @State private var showingEdit = false
+    @State private var showingShare = false
+    @State private var shareURL: URL?
 
     var body: some View {
         ZStack {
@@ -55,7 +57,17 @@ struct ChoreDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(AjetoColor.paper, for: .navigationBar)
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button {
+                    if let url = try? ChoreExport.writeTempFile(for: chore) {
+                        shareURL = url
+                        showingShare = true
+                    }
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(AjetoColor.ink)
+                }
                 Button("Bewerken") { showingEdit = true }
                     .font(AjetoFont.body(15, weight: .semibold))
                     .foregroundStyle(AjetoColor.blue)
@@ -63,6 +75,16 @@ struct ChoreDetailView: View {
         }
         .sheet(isPresented: $showingEdit) {
             NavigationStack { ChoreEditView(mode: .edit(chore)) }
+        }
+        .sheet(isPresented: $showingShare, onDismiss: {
+            if let shareURL {
+                try? FileManager.default.removeItem(at: shareURL)
+            }
+            shareURL = nil
+        }) {
+            if let shareURL {
+                ActivityView(items: [shareURL])
+            }
         }
     }
 }

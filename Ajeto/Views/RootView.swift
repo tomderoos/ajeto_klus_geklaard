@@ -1,6 +1,10 @@
 import SwiftUI
 
 struct RootView: View {
+    @Environment(\.modelContext) private var context
+    @State private var pendingImport: PendingImport?
+    @State private var importErrorMessage: String?
+
     init() {
         Self.configureAppearance()
     }
@@ -13,10 +17,41 @@ struct RootView: View {
                 .tabItem { Label("Planning", systemImage: "calendar") }
         }
         .tint(AjetoColor.ink)
+        .onOpenURL(perform: handleIncoming)
+        .sheet(item: $pendingImport) { pending in
+            ImportChorePreviewView(
+                snapshot: pending.snapshot,
+                onConfirm: {
+                    ChoreImport.insert(pending.snapshot, into: context)
+                    try? context.save()
+                    pendingImport = nil
+                },
+                onCancel: { pendingImport = nil }
+            )
+        }
+        .alert(
+            "Kan klus niet inlezen",
+            isPresented: Binding(
+                get: { importErrorMessage != nil },
+                set: { if !$0 { importErrorMessage = nil } }
+            )
+        ) {
+            Button("OK") { importErrorMessage = nil }
+        } message: {
+            Text(importErrorMessage ?? "")
+        }
+    }
+
+    private func handleIncoming(_ url: URL) {
+        do {
+            let snapshot = try ChoreImport.readSnapshot(from: url)
+            pendingImport = PendingImport(snapshot: snapshot)
+        } catch {
+            importErrorMessage = "Het gedeelde bestand kon niet worden ingelezen."
+        }
     }
 
     private static func configureAppearance() {
-        // Navigation bar
         let nav = UINavigationBarAppearance()
         nav.configureWithTransparentBackground()
         nav.backgroundColor = UIColor(AjetoColor.paper)
@@ -36,7 +71,6 @@ struct RootView: View {
         UINavigationBar.appearance().scrollEdgeAppearance = nav
         UINavigationBar.appearance().compactAppearance = nav
 
-        // Tab bar
         let tab = UITabBarAppearance()
         tab.configureWithDefaultBackground()
         tab.backgroundColor = UIColor(AjetoColor.surface)
@@ -45,7 +79,12 @@ struct RootView: View {
     }
 }
 
+struct PendingImport: Identifiable {
+    let id = UUID()
+    let snapshot: ChoreSnapshot
+}
+
 #Preview {
     RootView()
-        .modelContainer(for: [Chore.self, ChorePhoto.self], inMemory: true)
+        .modelContainer(for: [Chore.self, ChorePhoto.self, Room.self], inMemory: true)
 }
