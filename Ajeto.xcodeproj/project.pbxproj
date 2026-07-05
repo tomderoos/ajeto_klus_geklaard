@@ -44,6 +44,7 @@
 		468A1C5A6840368D1B16BF07 /* BulkShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkShareSheet.swift; sourceTree = "<group>"; };
 		50156BA29EFAE15EAAC60EC5 /* AjetoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoTheme.swift; sourceTree = "<group>"; };
 		6C9F38D677865D94AE9C553C /* RoomEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEditView.swift; sourceTree = "<group>"; };
+		6D6B3610D950717D94E1B011 /* Ajeto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ajeto.entitlements; sourceTree = "<group>"; };
 		714429899D5E95E32E62D7F7 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
 		7256C3D5B5F518D24EEAE188 /* PlanningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningView.swift; sourceTree = "<group>"; };
 		7CF471C884A5AFAE8FE86E9F /* ChorePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChorePhoto.swift; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 		8CE2E720C286C90D46F81C2B /* Ajeto */ = {
 			isa = PBXGroup;
 			children = (
+				6D6B3610D950717D94E1B011 /* Ajeto.entitlements */,
 				B4BF23108035A6E1C9E8BFC7 /* AjetoApp.swift */,
 				ADD39F4461869D9082D6BE36 /* Assets.xcassets */,
 				938545DDD0C69EE338DF3AF4 /* Info.plist */,
@@ -329,6 +331,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_ENTITLEMENTS = Ajeto/Ajeto.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7K85BU47R9;
@@ -420,6 +423,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_ENTITLEMENTS = Ajeto/Ajeto.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7K85BU47R9;

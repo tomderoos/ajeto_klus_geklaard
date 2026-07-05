@@ -149,8 +149,11 @@ struct ChoreListView: View {
     }
 
     private func delete(_ chore: Chore) {
-        for photo in chore.photos {
-            PhotoStorage.delete(photo.filename)
+        for photo in chore.photosList {
+            if !photo.filename.isEmpty {
+                PhotoStorage.delete(photo.filename)
+            }
+            context.delete(photo)
         }
         context.delete(chore)
     }
@@ -290,8 +293,7 @@ private struct ChoreRow: View {
 
     @ViewBuilder
     private var thumbnail: some View {
-        if let filename = chore.photos.first?.filename,
-           let image = PhotoStorage.load(filename) {
+        if let image = chore.photosList.first?.loadImage() {
             Image(uiImage: image)
                 .resizable()
                 .scaledToFill()

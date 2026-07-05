@@ -11,8 +11,8 @@ struct ChoreDetailView: View {
             AjetoColor.paper.ignoresSafeArea()
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    if !chore.photos.isEmpty {
-                        PhotoGalleryView(photos: chore.photos)
+                    if !chore.photosList.isEmpty {
+                        PhotoGalleryView(photos: chore.photosList)
                             .padding(.top, 4)
                     }
 
@@ -80,7 +80,7 @@ struct ChoreDetailView: View {
     /// Verandert wanneer de klus-inhoud verandert, zodat het gedeelde bestand
     /// automatisch opnieuw wordt aangemaakt na een edit.
     private var shareIdentity: String {
-        "\(chore.title)|\(chore.details)|\(chore.photos.count)|\(chore.scheduledStart?.timeIntervalSince1970 ?? 0)|\(chore.isDone)|\(chore.room?.name ?? "")"
+        "\(chore.title)|\(chore.details)|\(chore.photosList.count)|\(chore.scheduledStart?.timeIntervalSince1970 ?? 0)|\(chore.isDone)|\(chore.room?.name ?? "")"
     }
 }
 

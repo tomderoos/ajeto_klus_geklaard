@@ -51,12 +51,10 @@ enum ChoreImport {
         context.insert(chore)
 
         for photoData in snapshot.photos {
-            guard let image = UIImage(data: photoData.data),
-                  let filename = try? PhotoStorage.save(image, quality: 0.85)
-            else { continue }
-            let photo = ChorePhoto(filename: filename, addedAt: photoData.addedAt)
+            let photo = ChorePhoto(jpegData: photoData.data, addedAt: photoData.addedAt)
             context.insert(photo)
-            chore.photos.append(photo)
+            if chore.photos == nil { chore.photos = [] }
+            chore.photos?.append(photo)
         }
     }
 

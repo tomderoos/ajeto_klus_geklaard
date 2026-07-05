@@ -7,8 +7,14 @@ struct AjetoApp: App {
 
     init() {
         do {
-            container = try ModelContainer(for: Chore.self, ChorePhoto.self, Room.self)
-            Self.seedDefaultRoomsIfNeeded(container.mainContext)
+            let schema = Schema([Chore.self, ChorePhoto.self, Room.self])
+            let cloudConfig = ModelConfiguration(
+                schema: schema,
+                isStoredInMemoryOnly: false,
+                cloudKitDatabase: .private("iCloud.nl.tomderoos.Ajeto")
+            )
+            container = try ModelContainer(for: schema, configurations: [cloudConfig])
+            Self.performStartupTasks(container.mainContext)
         } catch {
             fatalError("Kon SwiftData-container niet aanmaken: \(error)")
         }
@@ -19,6 +25,12 @@ struct AjetoApp: App {
             RootView()
         }
         .modelContainer(container)
+    }
+
+    @MainActor
+    private static func performStartupTasks(_ context: ModelContext) {
+        seedDefaultRoomsIfNeeded(context)
+        PhotoStorage.migrateInline(context: context)
     }
 
     @MainActor
@@ -33,7 +45,7 @@ struct AjetoApp: App {
             }
             try context.save()
         } catch {
-            // eerste keer opstarten met een lege DB kan hier zonder problemen falen
+            // Eerste keer opstarten met een lege DB — negeren.
         }
     }
 }

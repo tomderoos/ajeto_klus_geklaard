@@ -8,7 +8,7 @@ struct PhotoGalleryView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
                 ForEach(Array(photos.enumerated()), id: \.element.id) { index, photo in
-                    if let image = PhotoStorage.load(photo.filename) {
+                    if let image = photo.loadImage() {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFill()
@@ -52,7 +52,7 @@ private struct FullScreenGallery: View {
             Color.black.ignoresSafeArea()
             TabView(selection: $currentIndex) {
                 ForEach(Array(photos.enumerated()), id: \.offset) { index, photo in
-                    if let image = PhotoStorage.load(photo.filename) {
+                    if let image = photo.loadImage() {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()

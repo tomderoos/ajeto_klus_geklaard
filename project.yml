@@ -17,6 +17,14 @@ targets:
     platform: iOS
     sources:
       - path: Ajeto
+    entitlements:
+      path: Ajeto/Ajeto.entitlements
+      properties:
+        com.apple.developer.icloud-container-identifiers:
+          - iCloud.nl.tomderoos.Ajeto
+        com.apple.developer.icloud-services:
+          - CloudKit
+        aps-environment: development
     info:
       path: Ajeto/Info.plist
       properties:
@@ -27,6 +35,8 @@ targets:
         UIAppFonts:
           - SpaceGrotesk.ttf
           - HankenGrotesk.ttf
+        UIBackgroundModes:
+          - remote-notification
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         UISupportedInterfaceOrientations~ipad:

@@ -9,7 +9,7 @@ final class Room {
     var createdAt: Date = Date.now
 
     @Relationship(deleteRule: .nullify, inverse: \Chore.room)
-    var chores: [Chore] = []
+    var chores: [Chore]?
 
     init(name: String, iconName: String, sortOrder: Int = 0, createdAt: Date = .now) {
         self.name = name

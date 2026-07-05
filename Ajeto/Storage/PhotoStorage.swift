@@ -1,4 +1,5 @@
 import Foundation
+import SwiftData
 import UIKit
 
 enum PhotoStorage {
@@ -39,5 +40,33 @@ enum PhotoStorage {
 
     static func delete(_ filename: String) {
         try? FileManager.default.removeItem(at: url(for: filename))
+    }
+
+    /// Migreert bestaande file-based foto's naar embedded jpegData in het
+    /// ChorePhoto-model, zodat ze via CloudKit syncen. Draait één keer bij
+    /// het opstarten. Idempotent en veilig om vaker aan te roepen — items
+    /// die al gemigreerd zijn worden overgeslagen.
+    @MainActor
+    static func migrateInline(context: ModelContext) {
+        let descriptor = FetchDescriptor<ChorePhoto>()
+        guard let photos = try? context.fetch(descriptor) else { return }
+
+        var didMigrate = false
+        for photo in photos {
+            // Al gemigreerd? Skip.
+            if let data = photo.jpegData, !data.isEmpty { continue }
+            // Geen legacy-file? Kan niets meer redden.
+            guard !photo.filename.isEmpty else { continue }
+            guard let image = load(photo.filename),
+                  let data = image.jpegData(compressionQuality: 0.85)
+            else { continue }
+            photo.jpegData = data
+            delete(photo.filename)
+            photo.filename = ""
+            didMigrate = true
+        }
+        if didMigrate {
+            try? context.save()
+        }
     }
 }

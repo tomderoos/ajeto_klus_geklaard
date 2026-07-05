@@ -12,8 +12,11 @@ final class Chore {
 
     var room: Room?
 
-    @Relationship(deleteRule: .cascade, inverse: \ChorePhoto.chore)
-    var photos: [ChorePhoto] = []
+    // CloudKit-integratie eist dat alle relaties optioneel zijn. Cleanup van
+    // achtergebleven ChorePhotos gebeurt handmatig in ChoreListView.delete(_:)
+    // omdat CloudKit ook geen .cascade delete-rule ondersteunt.
+    @Relationship(deleteRule: .nullify, inverse: \ChorePhoto.chore)
+    var photos: [ChorePhoto]?
 
     init(
         title: String = "",
@@ -29,5 +32,10 @@ final class Chore {
         self.scheduledEnd = scheduledEnd
         self.isDone = isDone
         self.createdAt = createdAt
+    }
+
+    /// Foto's zonder nil-coalesce boilerplate op de callsite.
+    var photosList: [ChorePhoto] {
+        photos ?? []
     }
 }

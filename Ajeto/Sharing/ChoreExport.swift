@@ -25,8 +25,9 @@ enum ChoreExport {
     }
 
     private static func makeSnapshot(from chore: Chore) -> ChoreSnapshot {
-        let photos: [ChoreSnapshot.PhotoSnapshot] = chore.photos.compactMap { photo in
-            guard let image = PhotoStorage.load(photo.filename),
+        let photos: [ChoreSnapshot.PhotoSnapshot] = chore.photosList.compactMap { photo in
+            guard let sourceData = photo.jpegBytes(),
+                  let image = UIImage(data: sourceData),
                   let resized = downscale(image, maxDimension: 1600),
                   let data = resized.jpegData(compressionQuality: 0.75)
             else { return nil }

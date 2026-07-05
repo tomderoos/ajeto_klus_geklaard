@@ -23,7 +23,7 @@ struct ChoreEditView: View {
     @State private var startTime = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: .now) ?? .now
     @State private var endTime = Calendar.current.date(bySettingHour: 10, minute: 0, second: 0, of: .now) ?? .now
 
-    @State private var newPhotoFilenames: [String] = []
+    @State private var newPhotoDatas: [Data] = []
     @State private var pickerItems: [PhotosPickerItem] = []
     @State private var showingCamera = false
     @State private var didLoad = false
@@ -76,18 +76,18 @@ struct ChoreEditView: View {
                     }
 
                     Section(title: "Foto's") {
-                        let existing = editingChore?.photos ?? []
-                        if !existing.isEmpty || !newPhotoFilenames.isEmpty {
+                        let existing = editingChore?.photosList ?? []
+                        if !existing.isEmpty || !newPhotoDatas.isEmpty {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 8) {
                                     ForEach(existing) { photo in
-                                        PhotoThumb(filename: photo.filename) {
+                                        PhotoThumb(image: photo.loadImage()) {
                                             removeExisting(photo)
                                         }
                                     }
-                                    ForEach(newPhotoFilenames, id: \.self) { filename in
-                                        PhotoThumb(filename: filename) {
-                                            removeNew(filename)
+                                    ForEach(Array(newPhotoDatas.enumerated()), id: \.offset) { index, data in
+                                        PhotoThumb(image: UIImage(data: data)) {
+                                            newPhotoDatas.remove(at: index)
                                         }
                                     }
                                 }
@@ -117,7 +117,7 @@ struct ChoreEditView: View {
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Annuleer") {
-                    for f in newPhotoFilenames { PhotoStorage.delete(f) }
+                    newPhotoDatas.removeAll()
                     dismiss()
                 }
                 .font(AjetoFont.body(15, weight: .medium))
@@ -135,8 +135,8 @@ struct ChoreEditView: View {
         }
         .sheet(isPresented: $showingCamera) {
             CameraPicker { image in
-                if let image, let filename = try? PhotoStorage.save(image) {
-                    newPhotoFilenames.append(filename)
+                if let image, let data = image.jpegData(compressionQuality: 0.85) {
+                    newPhotoDatas.append(data)
                 }
             }
         }
@@ -166,9 +166,9 @@ struct ChoreEditView: View {
         for item in items {
             if let data = try? await item.loadTransferable(type: Data.self),
                let img = UIImage(data: data),
-               let filename = try? PhotoStorage.save(img) {
+               let jpeg = img.jpegData(compressionQuality: 0.85) {
                 await MainActor.run {
-                    newPhotoFilenames.append(filename)
+                    newPhotoDatas.append(jpeg)
                 }
             }
         }
@@ -176,13 +176,10 @@ struct ChoreEditView: View {
     }
 
     private func removeExisting(_ photo: ChorePhoto) {
-        PhotoStorage.delete(photo.filename)
+        if !photo.filename.isEmpty {
+            PhotoStorage.delete(photo.filename)
+        }
         context.delete(photo)
-    }
-
-    private func removeNew(_ filename: String) {
-        PhotoStorage.delete(filename)
-        newPhotoFilenames.removeAll { $0 == filename }
     }
 
     private func save() {
@@ -203,12 +200,13 @@ struct ChoreEditView: View {
             chore.scheduledStart = nil
             chore.scheduledEnd = nil
         }
-        for filename in newPhotoFilenames {
-            let photo = ChorePhoto(filename: filename)
+        for data in newPhotoDatas {
+            let photo = ChorePhoto(jpegData: data)
             context.insert(photo)
-            chore.photos.append(photo)
+            if chore.photos == nil { chore.photos = [] }
+            chore.photos?.append(photo)
         }
-        newPhotoFilenames.removeAll()
+        newPhotoDatas.removeAll()
         dismiss()
     }
 
@@ -370,12 +368,12 @@ private struct ActionChip: View {
 }
 
 private struct PhotoThumb: View {
-    let filename: String
+    let image: UIImage?
     let onDelete: () -> Void
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            if let image = PhotoStorage.load(filename) {
+            if let image {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFill()

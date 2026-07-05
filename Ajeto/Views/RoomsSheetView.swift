@@ -101,7 +101,7 @@ private struct RoomRow: View {
                 Text(room.name)
                     .font(AjetoFont.display(16, weight: .semibold))
                     .foregroundStyle(AjetoColor.ink)
-                Text("\(room.chores.count) klus\(room.chores.count == 1 ? "" : "sen")")
+                Text("\(room.chores?.count ?? 0) klus\((room.chores?.count ?? 0) == 1 ? "" : "sen")")
                     .font(AjetoFont.body(12, weight: .medium))
                     .foregroundStyle(AjetoColor.muted)
             }
