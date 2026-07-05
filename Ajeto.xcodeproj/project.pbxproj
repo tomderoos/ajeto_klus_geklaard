@@ -17,7 +17,6 @@
 		465C31BDCAD4CC29F074FDB9 /* ChoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33148AE9A11D37B4C16A083A /* ChoreEditView.swift */; };
 		4EB2CB41610030E2F256136C /* HankenGrotesk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87506B2714CCC9E35AF3CA07 /* HankenGrotesk.ttf */; };
 		5212B1577AE2E44B467FEB14 /* PhotoGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A7104BD16AFA7777B7F97 /* PhotoGalleryView.swift */; };
-		5BEF5DE5A320A14E25841B3B /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E809662448E4C43132EC918D /* ActivityView.swift */; };
 		5F57BBAB6CC17CF33C434112 /* PlanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7256C3D5B5F518D24EEAE188 /* PlanningView.swift */; };
 		8B8A43F5FD8781F72573C82A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */; };
 		92E6F10BD0EEAA843403853D /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41136B7A16A39902315D75CE /* Room.swift */; };
@@ -60,7 +59,6 @@
 		B58F9CD9569AAE322F6C2895 /* ChoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreListView.swift; sourceTree = "<group>"; };
 		C148138680B7720D9793C25A /* Ajeto.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ajeto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E04FBEF2E363477442D9F287 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
-		E809662448E4C43132EC918D /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		F6166918D8F6FE5B44F757C6 /* RoomBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomBadge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,7 +66,6 @@
 		131DFF976EE8912402350C4E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E809662448E4C43132EC918D /* ActivityView.swift */,
 				AE9C130A39B38CFB378803EE /* CameraPicker.swift */,
 				714429899D5E95E32E62D7F7 /* ChoreDetailView.swift */,
 				33148AE9A11D37B4C16A083A /* ChoreEditView.swift */,
@@ -235,7 +232,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BEF5DE5A320A14E25841B3B /* ActivityView.swift in Sources */,
 				E063C3B895DAAE6C4D29A84E /* AjetoApp.swift in Sources */,
 				9B9B068081EBB25F6BEBBAF8 /* AjetoIcon.swift in Sources */,
 				2D86457D7659FD9AE49CE4E2 /* AjetoTheme.swift in Sources */,

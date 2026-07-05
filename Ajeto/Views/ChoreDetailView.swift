@@ -4,7 +4,6 @@ import SwiftData
 struct ChoreDetailView: View {
     @Bindable var chore: Chore
     @State private var showingEdit = false
-    @State private var showingShare = false
     @State private var shareURL: URL?
 
     var body: some View {
@@ -58,15 +57,12 @@ struct ChoreDetailView: View {
         .toolbarBackground(AjetoColor.paper, for: .navigationBar)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
-                Button {
-                    if let url = try? ChoreExport.writeTempFile(for: chore) {
-                        shareURL = url
-                        showingShare = true
+                if let shareURL {
+                    ShareLink(item: shareURL, subject: Text(chore.title.isEmpty ? "Klus" : chore.title)) {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundStyle(AjetoColor.ink)
                     }
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundStyle(AjetoColor.ink)
                 }
                 Button("Bewerken") { showingEdit = true }
                     .font(AjetoFont.body(15, weight: .semibold))
@@ -76,16 +72,15 @@ struct ChoreDetailView: View {
         .sheet(isPresented: $showingEdit) {
             NavigationStack { ChoreEditView(mode: .edit(chore)) }
         }
-        .sheet(isPresented: $showingShare, onDismiss: {
-            if let shareURL {
-                try? FileManager.default.removeItem(at: shareURL)
-            }
-            shareURL = nil
-        }) {
-            if let shareURL {
-                ActivityView(items: [shareURL])
-            }
+        .task(id: shareIdentity) {
+            shareURL = try? ChoreExport.writeTempFile(for: chore)
         }
+    }
+
+    /// Verandert wanneer de klus-inhoud verandert, zodat het gedeelde bestand
+    /// automatisch opnieuw wordt aangemaakt na een edit.
+    private var shareIdentity: String {
+        "\(chore.title)|\(chore.details)|\(chore.photos.count)|\(chore.scheduledStart?.timeIntervalSince1970 ?? 0)|\(chore.isDone)|\(chore.room?.name ?? "")"
     }
 }
 
