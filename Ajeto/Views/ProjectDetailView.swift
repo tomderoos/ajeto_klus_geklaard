@@ -4,6 +4,9 @@ import SwiftData
 struct ProjectDetailView: View {
     @Bindable var project: Project
     @Environment(\.modelContext) private var context
+    /// Zelfde reden als in ProjectsView: forceer re-render bij Chore-inserts
+    /// zodat het klussenlijstje meteen updatet.
+    @Query private var choresTrigger: [Chore]
 
     @State private var showingEdit = false
     @State private var showingNewChore = false

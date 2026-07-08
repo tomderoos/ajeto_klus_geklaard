@@ -32,6 +32,7 @@ struct ChoreEditView: View {
     @State private var pickerItems: [PhotosPickerItem] = []
     @State private var showingCamera = false
     @State private var didLoad = false
+    @FocusState private var titleFocused: Bool
 
     private var editingChore: Chore? {
         if case .edit(let c) = mode { return c }
@@ -53,6 +54,7 @@ struct ChoreEditView: View {
                 VStack(spacing: 16) {
                     Section(title: "Klus") {
                         Field(placeholder: "Titel (bv. voordeur schilderen)", text: $title)
+                            .focused($titleFocused)
                         MultilineField(placeholder: "Beschrijving", text: $details)
                     }
 
@@ -166,7 +168,16 @@ struct ChoreEditView: View {
                 }
             }
         }
-        .onAppear(perform: loadFromExisting)
+        .onAppear {
+            loadFromExisting()
+            // Alleen bij nieuwe klus: title-veld auto-focussen. Bij een edit
+            // wil je waarschijnlijk niet meteen de titel wijzigen.
+            if editingChore == nil {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    titleFocused = true
+                }
+            }
+        }
     }
 
     private func loadFromExisting() {
@@ -242,6 +253,11 @@ struct ChoreEditView: View {
             chore.photos?.append(photo)
         }
         newPhotoDatas.removeAll()
+
+        // Expliciete save zodat de wijziging direct in de store staat en
+        // alle @Query-observers (o.a. ProjectsView) meteen refreshen — niet
+        // pas na de volgende auto-save-batch van SwiftData.
+        try? context.save()
 
         NotificationService.rescheduleNotification(for: chore)
 

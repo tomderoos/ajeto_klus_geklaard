@@ -4,6 +4,11 @@ import SwiftData
 struct ProjectsView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Project.createdAt, order: .reverse) private var allProjects: [Project]
+    /// Ongebruikt in de view zelf, maar door mee te queryen refresht de view
+    /// zodra er een klus toegevoegd/gewijzigd wordt — anders zou
+    /// `project.choreCount` pas na de volgende SwiftData-observer-tick
+    /// updaten, wat 10+ seconden kan duren.
+    @Query private var choresTrigger: [Chore]
 
     @State private var showingNew = false
 
