@@ -42,6 +42,7 @@
 		D757BB8AF16D9CC4A1D1BF95 /* RoomsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C0748C348D9877F4DD173 /* RoomsSheetView.swift */; };
 		D9F2C96C76B201750BCFD906 /* Household.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF4047619F06836806D7FB6 /* Household.swift */; };
 		E063C3B895DAAE6C4D29A84E /* AjetoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BF23108035A6E1C9E8BFC7 /* AjetoApp.swift */; };
+		EB50EC5D5AC3ECDD95F608F3 /* DedupMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCD16AFEF6AEB968CC69ED2 /* DedupMigration.swift */; };
 		F6CA487F2F7D9B4F6CC0EEBC /* CameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9C130A39B38CFB378803EE /* CameraPicker.swift */; };
 		F79B9ECB45163F76E4CEB73B /* ChoreExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19575A8D890A507E39BD3347 /* ChoreExport.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		98392756859CF05D1BC25AC4 /* SpaceGrotesk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGrotesk.ttf; sourceTree = "<group>"; };
 		98A8080EF61702A541139208 /* AjetoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoIcon.swift; sourceTree = "<group>"; };
 		9B1DC9AAF9C74FC04CF467F6 /* ChoreImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreImport.swift; sourceTree = "<group>"; };
+		9CCD16AFEF6AEB968CC69ED2 /* DedupMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DedupMigration.swift; sourceTree = "<group>"; };
 		A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		ABB8CE762A20C05B621FD9D1 /* PersonsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonsSheetView.swift; sourceTree = "<group>"; };
 		ADD39F4461869D9082D6BE36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		3F56B86216ABDFECB8BA84A7 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				9CCD16AFEF6AEB968CC69ED2 /* DedupMigration.swift */,
 				5B3A61D921A268BA6E564C15 /* NotificationService.swift */,
 				8E489305DC9140A49604C3F3 /* PhotoStorage.swift */,
 			);
@@ -286,6 +289,7 @@
 				AF21FA28F0A9DA532DA47348 /* ChoreListView.swift in Sources */,
 				2AC44950CBE874570254587C /* ChorePhoto.swift in Sources */,
 				A15005F1485E4AF64087D767 /* ChoreSnapshot.swift in Sources */,
+				EB50EC5D5AC3ECDD95F608F3 /* DedupMigration.swift in Sources */,
 				D9F2C96C76B201750BCFD906 /* Household.swift in Sources */,
 				9B445343AD35BEAA50F380CD /* ImportChorePreviewView.swift in Sources */,
 				23A66242C885D6065A4D5B88 /* NotificationService.swift in Sources */,

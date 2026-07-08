@@ -32,6 +32,7 @@ struct AjetoApp: App {
 
     @MainActor
     private static func performStartupTasks(_ context: ModelContext) {
+        DedupMigration.run(context)
         let household = ensureDefaultHousehold(context)
         seedDefaultRoomsIfNeeded(context, household: household)
         backfillHousehold(context, household: household)
@@ -56,17 +57,29 @@ struct AjetoApp: App {
 
     @MainActor
     private static func seedDefaultRoomsIfNeeded(_ context: ModelContext, household: Household) {
+        // UserDefaults-vlag voorkomt dat een tweede device (na CloudKit sync)
+        // opnieuw seedt terwijl er al ruimtes op weg zijn vanuit de cloud.
+        // Combineert met DedupMigration voor bestaande duplicaten.
+        let flagKey = "didSeedInitialRooms"
+        if UserDefaults.standard.bool(forKey: flagKey) { return }
+
         var descriptor = FetchDescriptor<Room>()
         descriptor.fetchLimit = 1
         do {
             let existing = try context.fetch(descriptor)
-            guard existing.isEmpty else { return }
+            guard existing.isEmpty else {
+                // Er staan al ruimtes (lokaal of net binnengekomen via sync).
+                // Zet de vlag zodat we niet later alsnog per ongeluk seeden.
+                UserDefaults.standard.set(true, forKey: flagKey)
+                return
+            }
             for (idx, seed) in RoomDefaults.seeds.enumerated() {
                 let room = Room(name: seed.name, iconName: seed.iconName, sortOrder: idx)
                 room.household = household
                 context.insert(room)
             }
             try context.save()
+            UserDefaults.standard.set(true, forKey: flagKey)
         } catch {
             // Eerste keer opstarten met een lege DB — negeren.
         }
