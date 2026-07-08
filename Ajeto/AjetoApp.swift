@@ -7,7 +7,10 @@ struct AjetoApp: App {
 
     init() {
         do {
-            let schema = Schema([Chore.self, ChorePhoto.self, Room.self, Household.self])
+            let schema = Schema([
+                Chore.self, ChorePhoto.self, Room.self,
+                Household.self, Person.self, Project.self
+            ])
             let cloudConfig = ModelConfiguration(
                 schema: schema,
                 isStoredInMemoryOnly: false,

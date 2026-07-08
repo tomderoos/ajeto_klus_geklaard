@@ -10,6 +10,7 @@ struct ChoreListView: View {
     @State private var showingNew = false
     @State private var showingRooms = false
     @State private var showingNewRoom = false
+    @State private var showingPersons = false
     @State private var bulkShare: BulkSharePayload?
 
     private var filteredChores: [Chore] {
@@ -89,6 +90,12 @@ struct ChoreListView: View {
                         } label: {
                             Label("Ruimtes beheren", systemImage: "square.grid.2x2")
                         }
+
+                        Button {
+                            showingPersons = true
+                        } label: {
+                            Label("Personen beheren", systemImage: "person.2")
+                        }
                     } label: {
                         Image(systemName: "ellipsis")
                             .font(.system(size: 15, weight: .semibold))
@@ -125,6 +132,9 @@ struct ChoreListView: View {
             }
             .sheet(item: $bulkShare) { payload in
                 BulkShareSheet(payload: payload)
+            }
+            .sheet(isPresented: $showingPersons) {
+                PersonsSheetView()
             }
         }
     }
@@ -284,8 +294,13 @@ private struct ChoreRow: View {
                 }
             }
             Spacer(minLength: 0)
-            if chore.isDone {
-                DoneBadge()
+            VStack(alignment: .trailing, spacing: 6) {
+                if chore.isDone {
+                    DoneBadge()
+                }
+                if let assignees = chore.assignees, !assignees.isEmpty {
+                    AvatarStack(people: assignees, size: 22, maxVisible: 3)
+                }
             }
         }
         .ajCard(padding: 14)

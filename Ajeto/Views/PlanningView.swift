@@ -106,10 +106,15 @@ private struct ScheduledRow: View {
                 }
             }
             Spacer(minLength: 0)
-            if chore.isDone {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 20))
-                    .foregroundStyle(AjetoColor.green)
+            VStack(alignment: .trailing, spacing: 6) {
+                if chore.isDone {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 20))
+                        .foregroundStyle(AjetoColor.green)
+                }
+                if let assignees = chore.assignees, !assignees.isEmpty {
+                    AvatarStack(people: assignees, size: 20, maxVisible: 3)
+                }
             }
         }
         .ajCard(padding: 12)

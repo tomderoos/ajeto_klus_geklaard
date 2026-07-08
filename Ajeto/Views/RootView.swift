@@ -13,6 +13,8 @@ struct RootView: View {
         TabView {
             ChoreListView()
                 .tabItem { Label("Klussen", systemImage: "checkmark.circle") }
+            ProjectsView()
+                .tabItem { Label("Projecten", systemImage: "square.stack.3d.up") }
             PlanningView()
                 .tabItem { Label("Planning", systemImage: "calendar") }
         }

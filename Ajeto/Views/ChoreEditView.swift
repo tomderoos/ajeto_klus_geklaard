@@ -5,7 +5,7 @@ import UIKit
 
 struct ChoreEditView: View {
     enum Mode {
-        case create(prefilledRoomID: PersistentIdentifier?)
+        case create(prefilledRoomID: PersistentIdentifier?, prefilledProjectID: PersistentIdentifier? = nil)
         case edit(Chore)
     }
 
@@ -14,10 +14,14 @@ struct ChoreEditView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \Room.sortOrder) private var rooms: [Room]
+    @Query(sort: \Person.sortOrder) private var persons: [Person]
+    @Query(sort: \Project.createdAt, order: .reverse) private var projects: [Project]
 
     @State private var title = ""
     @State private var details = ""
     @State private var selectedRoomID: PersistentIdentifier?
+    @State private var selectedProjectID: PersistentIdentifier?
+    @State private var selectedPersonIDs: Set<PersistentIdentifier> = []
     @State private var hasSchedule = false
     @State private var scheduledDate = Calendar.current.startOfDay(for: .now)
     @State private var startTime = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: .now) ?? .now
@@ -55,6 +59,20 @@ struct ChoreEditView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Ruimte").ajEyebrow(AjetoColor.muted)
                             RoomPicker(rooms: rooms, selectedID: $selectedRoomID)
+                        }
+                    }
+
+                    if !projects.isEmpty {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Project").ajEyebrow(AjetoColor.muted)
+                            ProjectPicker(projects: projects, selectedID: $selectedProjectID)
+                        }
+                    }
+
+                    if !persons.isEmpty {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Wie doet dit?").ajEyebrow(AjetoColor.muted)
+                            PersonMultiPicker(persons: persons, selectedIDs: $selectedPersonIDs)
                         }
                     }
 
@@ -147,12 +165,15 @@ struct ChoreEditView: View {
         guard !didLoad else { return }
         didLoad = true
         switch mode {
-        case .create(let prefilledRoomID):
+        case .create(let prefilledRoomID, let prefilledProjectID):
             selectedRoomID = prefilledRoomID
+            selectedProjectID = prefilledProjectID
         case .edit(let chore):
             title = chore.title
             details = chore.details
             selectedRoomID = chore.room?.persistentModelID
+            selectedProjectID = chore.project?.persistentModelID
+            selectedPersonIDs = Set((chore.assignees ?? []).map(\.persistentModelID))
             if let start = chore.scheduledStart {
                 hasSchedule = true
                 scheduledDate = Calendar.current.startOfDay(for: start)
@@ -194,6 +215,8 @@ struct ChoreEditView: View {
         chore.title = title.trimmingCharacters(in: .whitespaces)
         chore.details = details.trimmingCharacters(in: .whitespacesAndNewlines)
         chore.room = rooms.first { $0.persistentModelID == selectedRoomID }
+        chore.project = projects.first { $0.persistentModelID == selectedProjectID }
+        chore.assignees = persons.filter { selectedPersonIDs.contains($0.persistentModelID) }
         if hasSchedule {
             chore.scheduledStart = combine(date: scheduledDate, time: startTime)
             chore.scheduledEnd = combine(date: scheduledDate, time: endTime)
@@ -238,6 +261,68 @@ private struct Section<Content: View>: View {
                 content()
             }
             .ajCard(padding: 16)
+        }
+    }
+}
+
+private struct ProjectPicker: View {
+    let projects: [Project]
+    @Binding var selectedID: PersistentIdentifier?
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                Chip(label: "Geen", icon: nil, selected: selectedID == nil) {
+                    selectedID = nil
+                }
+                ForEach(projects) { project in
+                    Chip(
+                        label: project.name.isEmpty ? "Zonder titel" : project.name,
+                        icon: project.isCompleted ? "checkmark.seal" : "square.stack.3d.up",
+                        selected: selectedID == project.persistentModelID
+                    ) {
+                        selectedID = project.persistentModelID
+                    }
+                }
+            }
+            .padding(.vertical, 2)
+        }
+    }
+}
+
+private struct PersonMultiPicker: View {
+    let persons: [Person]
+    @Binding var selectedIDs: Set<PersistentIdentifier>
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(persons) { person in
+                    let selected = selectedIDs.contains(person.persistentModelID)
+                    Button {
+                        if selected {
+                            selectedIDs.remove(person.persistentModelID)
+                        } else {
+                            selectedIDs.insert(person.persistentModelID)
+                        }
+                    } label: {
+                        HStack(spacing: 8) {
+                            PersonAvatar(person: person, size: 22)
+                            Text(person.name)
+                                .font(AjetoFont.body(13, weight: .semibold))
+                        }
+                        .foregroundStyle(selected ? AjetoColor.ink : AjetoColor.muted)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(selected ? AjetoColor.green : AjetoColor.surface, in: Capsule())
+                        .overlay(
+                            Capsule().stroke(selected ? .clear : AjetoColor.border, lineWidth: 1)
+                        )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.vertical, 2)
         }
     }
 }

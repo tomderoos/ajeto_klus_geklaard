@@ -15,6 +15,12 @@ final class Household {
     @Relationship(deleteRule: .nullify, inverse: \Room.household)
     var rooms: [Room]?
 
+    @Relationship(deleteRule: .nullify, inverse: \Person.household)
+    var persons: [Person]?
+
+    @Relationship(deleteRule: .nullify, inverse: \Project.household)
+    var projects: [Project]?
+
     init(name: String = "Mijn huishouden", createdAt: Date = .now) {
         self.name = name
         self.createdAt = createdAt
