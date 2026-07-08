@@ -1,6 +1,11 @@
 import SwiftUI
 
 struct RootView: View {
+    @Environment(\.scenePhase) private var scenePhase
+
+    private let remoteChanges = NotificationCenter.default.publisher(
+        for: .NSPersistentStoreRemoteChange
+    )
     @Environment(\.modelContext) private var context
     @State private var pendingImport: PendingImport?
     @State private var importErrorMessage: String?
@@ -21,6 +26,14 @@ struct RootView: View {
                 .tabItem { Label("Planning", systemImage: "calendar") }
         }
         .tint(AjetoColor.ink)
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active {
+                DedupMigration.run(context)
+            }
+        }
+        .onReceive(remoteChanges) { _ in
+            DedupMigration.run(context)
+        }
         .preferredColorScheme(.light)
         .onAppear {
             if !hasSeenOnboarding {
