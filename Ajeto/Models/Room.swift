@@ -7,6 +7,7 @@ final class Room {
     var iconName: String = "square.dashed"
     var sortOrder: Int = 0
     var createdAt: Date = Date.now
+    var household: Household?
 
     @Relationship(deleteRule: .nullify, inverse: \Chore.room)
     var chores: [Chore]?

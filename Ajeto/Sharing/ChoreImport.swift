@@ -48,6 +48,7 @@ enum ChoreImport {
             createdAt: .now
         )
         chore.room = resolveRoom(name: snapshot.roomName, iconName: snapshot.roomIconName, in: context)
+        chore.household = Household.primary(in: context)
         context.insert(chore)
 
         for photoData in snapshot.photos {
@@ -77,6 +78,7 @@ enum ChoreImport {
             iconName: iconName ?? "square.dashed",
             sortOrder: nextOrder
         )
+        room.household = Household.primary(in: context)
         context.insert(room)
         return room
     }

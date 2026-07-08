@@ -188,6 +188,7 @@ struct ChoreEditView: View {
             chore = existing
         } else {
             chore = Chore()
+            chore.household = Household.primary(in: context)
             context.insert(chore)
         }
         chore.title = title.trimmingCharacters(in: .whitespaces)

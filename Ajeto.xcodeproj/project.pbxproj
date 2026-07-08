@@ -29,6 +29,7 @@
 		AF21FA28F0A9DA532DA47348 /* ChoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F9CD9569AAE322F6C2895 /* ChoreListView.swift */; };
 		CE7703A5B11D91A10FF73B6B /* ChoreImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1DC9AAF9C74FC04CF467F6 /* ChoreImport.swift */; };
 		D757BB8AF16D9CC4A1D1BF95 /* RoomsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C0748C348D9877F4DD173 /* RoomsSheetView.swift */; };
+		D9F2C96C76B201750BCFD906 /* Household.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF4047619F06836806D7FB6 /* Household.swift */; };
 		E063C3B895DAAE6C4D29A84E /* AjetoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BF23108035A6E1C9E8BFC7 /* AjetoApp.swift */; };
 		F6CA487F2F7D9B4F6CC0EEBC /* CameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9C130A39B38CFB378803EE /* CameraPicker.swift */; };
 		F79B9ECB45163F76E4CEB73B /* ChoreExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19575A8D890A507E39BD3347 /* ChoreExport.swift */; };
@@ -61,6 +62,7 @@
 		B4BF23108035A6E1C9E8BFC7 /* AjetoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoApp.swift; sourceTree = "<group>"; };
 		B58F9CD9569AAE322F6C2895 /* ChoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreListView.swift; sourceTree = "<group>"; };
 		C148138680B7720D9793C25A /* Ajeto.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ajeto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCF4047619F06836806D7FB6 /* Household.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Household.swift; sourceTree = "<group>"; };
 		E04FBEF2E363477442D9F287 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
 		F6166918D8F6FE5B44F757C6 /* RoomBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomBadge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,6 +142,7 @@
 			children = (
 				E04FBEF2E363477442D9F287 /* Chore.swift */,
 				7CF471C884A5AFAE8FE86E9F /* ChorePhoto.swift */,
+				CCF4047619F06836806D7FB6 /* Household.swift */,
 				41136B7A16A39902315D75CE /* Room.swift */,
 			);
 			path = Models;
@@ -250,6 +253,7 @@
 				AF21FA28F0A9DA532DA47348 /* ChoreListView.swift in Sources */,
 				2AC44950CBE874570254587C /* ChorePhoto.swift in Sources */,
 				A15005F1485E4AF64087D767 /* ChoreSnapshot.swift in Sources */,
+				D9F2C96C76B201750BCFD906 /* Household.swift in Sources */,
 				9B445343AD35BEAA50F380CD /* ImportChorePreviewView.swift in Sources */,
 				5212B1577AE2E44B467FEB14 /* PhotoGalleryView.swift in Sources */,
 				9B6D935076B20626489A7143 /* PhotoStorage.swift in Sources */,

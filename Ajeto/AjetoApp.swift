@@ -7,7 +7,7 @@ struct AjetoApp: App {
 
     init() {
         do {
-            let schema = Schema([Chore.self, ChorePhoto.self, Room.self])
+            let schema = Schema([Chore.self, ChorePhoto.self, Room.self, Household.self])
             let cloudConfig = ModelConfiguration(
                 schema: schema,
                 isStoredInMemoryOnly: false,
@@ -29,23 +29,67 @@ struct AjetoApp: App {
 
     @MainActor
     private static func performStartupTasks(_ context: ModelContext) {
-        seedDefaultRoomsIfNeeded(context)
+        let household = ensureDefaultHousehold(context)
+        seedDefaultRoomsIfNeeded(context, household: household)
+        backfillHousehold(context, household: household)
         PhotoStorage.migrateInline(context: context)
     }
 
+    /// Garandeer dat er altijd exact één "primair" huishouden bestaat waar
+    /// nieuwe klussen/ruimtes aan gekoppeld worden. Fase 2B kan dit
+    /// concept uitbreiden naar meerdere huishoudens.
     @MainActor
-    private static func seedDefaultRoomsIfNeeded(_ context: ModelContext) {
+    private static func ensureDefaultHousehold(_ context: ModelContext) -> Household {
+        var descriptor = FetchDescriptor<Household>(sortBy: [SortDescriptor(\.createdAt)])
+        descriptor.fetchLimit = 1
+        if let existing = try? context.fetch(descriptor).first {
+            return existing
+        }
+        let household = Household()
+        context.insert(household)
+        try? context.save()
+        return household
+    }
+
+    @MainActor
+    private static func seedDefaultRoomsIfNeeded(_ context: ModelContext, household: Household) {
         var descriptor = FetchDescriptor<Room>()
         descriptor.fetchLimit = 1
         do {
             let existing = try context.fetch(descriptor)
             guard existing.isEmpty else { return }
             for (idx, seed) in RoomDefaults.seeds.enumerated() {
-                context.insert(Room(name: seed.name, iconName: seed.iconName, sortOrder: idx))
+                let room = Room(name: seed.name, iconName: seed.iconName, sortOrder: idx)
+                room.household = household
+                context.insert(room)
             }
             try context.save()
         } catch {
             // Eerste keer opstarten met een lege DB — negeren.
+        }
+    }
+
+    /// Bestaande klussen/ruimtes van vóór het Household-concept krijgen alsnog
+    /// een link naar het default household, zodat ze automatisch mee kunnen in
+    /// een toekomstige CKShare.
+    @MainActor
+    private static func backfillHousehold(_ context: ModelContext, household: Household) {
+        var didUpdate = false
+
+        if let chores = try? context.fetch(FetchDescriptor<Chore>()) {
+            for chore in chores where chore.household == nil {
+                chore.household = household
+                didUpdate = true
+            }
+        }
+        if let rooms = try? context.fetch(FetchDescriptor<Room>()) {
+            for room in rooms where room.household == nil {
+                room.household = household
+                didUpdate = true
+            }
+        }
+        if didUpdate {
+            try? context.save()
         }
     }
 }

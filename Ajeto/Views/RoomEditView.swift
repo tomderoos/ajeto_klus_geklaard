@@ -100,6 +100,7 @@ struct RoomEditView: View {
         switch mode {
         case .create(let sortOrder):
             let room = Room(name: trimmed, iconName: iconName, sortOrder: sortOrder)
+            room.household = Household.primary(in: context)
             context.insert(room)
         case .edit(let room):
             room.name = trimmed

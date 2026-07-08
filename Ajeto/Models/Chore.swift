@@ -11,6 +11,7 @@ final class Chore {
     var createdAt: Date = Date.now
 
     var room: Room?
+    var household: Household?
 
     // CloudKit-integratie eist dat alle relaties optioneel zijn. Cleanup van
     // achtergebleven ChorePhotos gebeurt handmatig in ChoreListView.delete(_:)
