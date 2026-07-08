@@ -4,6 +4,8 @@ struct RootView: View {
     @Environment(\.modelContext) private var context
     @State private var pendingImport: PendingImport?
     @State private var importErrorMessage: String?
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding: Bool = false
+    @State private var showingOnboarding: Bool = false
 
     init() {
         Self.configureAppearance()
@@ -19,6 +21,16 @@ struct RootView: View {
                 .tabItem { Label("Planning", systemImage: "calendar") }
         }
         .tint(AjetoColor.ink)
+        .onAppear {
+            if !hasSeenOnboarding {
+                showingOnboarding = true
+            }
+        }
+        .sheet(isPresented: $showingOnboarding, onDismiss: {
+            hasSeenOnboarding = true
+        }) {
+            OnboardingView()
+        }
         .onOpenURL(perform: handleIncoming)
         .sheet(item: $pendingImport) { pending in
             ImportChorePreviewView(

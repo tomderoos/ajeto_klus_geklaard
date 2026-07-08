@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		03A8E083C1BD83DBB179FC80 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522688FD4371B30E2A9F8886 /* ProjectsView.swift */; };
 		07F6CA61E0E9015135A72894 /* RoomEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F38D677865D94AE9C553C /* RoomEditView.swift */; };
+		0F73C0EBDD5D3BB857C06F42 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219AEE555DA896EC2E5183CD /* OnboardingView.swift */; };
 		1EAC0F86CF1BA3B4B20D6CEE /* SpaceGrotesk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98392756859CF05D1BC25AC4 /* SpaceGrotesk.ttf */; };
 		23A66242C885D6065A4D5B88 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A61D921A268BA6E564C15 /* NotificationService.swift */; };
 		24F7062E5CD151F1F1E8FF38 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04FBEF2E363477442D9F287 /* Chore.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		19575A8D890A507E39BD3347 /* ChoreExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreExport.swift; sourceTree = "<group>"; };
+		219AEE555DA896EC2E5183CD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		254C0748C348D9877F4DD173 /* RoomsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsSheetView.swift; sourceTree = "<group>"; };
 		2E8A7104BD16AFA7777B7F97 /* PhotoGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryView.swift; sourceTree = "<group>"; };
 		33148AE9A11D37B4C16A083A /* ChoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreEditView.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				33148AE9A11D37B4C16A083A /* ChoreEditView.swift */,
 				B58F9CD9569AAE322F6C2895 /* ChoreListView.swift */,
 				3B9EFC235B7DA781999A7801 /* ImportChorePreviewView.swift */,
+				219AEE555DA896EC2E5183CD /* OnboardingView.swift */,
 				C2612087C938489DA7B45D60 /* PersonBadge.swift */,
 				DBDAAA3FB30C6E766A514CEB /* PersonEditView.swift */,
 				ABB8CE762A20C05B621FD9D1 /* PersonsSheetView.swift */,
@@ -286,6 +289,7 @@
 				D9F2C96C76B201750BCFD906 /* Household.swift in Sources */,
 				9B445343AD35BEAA50F380CD /* ImportChorePreviewView.swift in Sources */,
 				23A66242C885D6065A4D5B88 /* NotificationService.swift in Sources */,
+				0F73C0EBDD5D3BB857C06F42 /* OnboardingView.swift in Sources */,
 				2578350AC92A7D718A474008 /* Person.swift in Sources */,
 				AE4242C6DA92FA66A46627E3 /* PersonBadge.swift in Sources */,
 				A2BC5466A376959FC911EC35 /* PersonEditView.swift in Sources */,

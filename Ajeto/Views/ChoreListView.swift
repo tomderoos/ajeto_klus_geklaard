@@ -13,6 +13,7 @@ struct ChoreListView: View {
     @State private var showingRooms = false
     @State private var showingNewRoom = false
     @State private var showingPersons = false
+    @State private var showingOnboarding = false
     @State private var bulkShare: BulkSharePayload?
 
     private var filteredChores: [Chore] {
@@ -116,6 +117,14 @@ struct ChoreListView: View {
                         } label: {
                             Label("Personen beheren", systemImage: "person.2")
                         }
+
+                        Divider()
+
+                        Button {
+                            showingOnboarding = true
+                        } label: {
+                            Label("Rondleiding", systemImage: "sparkles")
+                        }
                     } label: {
                         Image(systemName: "ellipsis")
                             .font(.system(size: 15, weight: .semibold))
@@ -155,6 +164,9 @@ struct ChoreListView: View {
             }
             .sheet(isPresented: $showingPersons) {
                 PersonsSheetView()
+            }
+            .sheet(isPresented: $showingOnboarding) {
+                OnboardingView()
             }
         }
     }
