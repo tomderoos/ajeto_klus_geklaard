@@ -9,6 +9,11 @@ final class Chore {
     var scheduledEnd: Date?
     var isDone: Bool = false
     var createdAt: Date = Date.now
+    /// Opgeslagen als String voor CloudKit-compat. Gebruik `recurrence` voor typed access.
+    var recurrenceRaw: String = Recurrence.none.rawValue
+    /// Stabiele identifier die overleeft over app-launches en devices — nodig
+    /// om lokale notificaties consistent te kunnen (her)plannen en cancelen.
+    var stableID: String = UUID().uuidString
 
     var room: Room?
     var household: Household?
@@ -40,5 +45,32 @@ final class Chore {
     /// Foto's zonder nil-coalesce boilerplate op de callsite.
     var photosList: [ChorePhoto] {
         photos ?? []
+    }
+
+    var recurrence: Recurrence {
+        get { Recurrence(rawValue: recurrenceRaw) ?? .none }
+        set { recurrenceRaw = newValue.rawValue }
+    }
+
+    /// Toggle het afgevinkt-veld. Voor terugkerende klussen: bij aan-tikken
+    /// wordt de klus niet klaar-gezet maar doorgeschoven naar de volgende
+    /// occurrence (start + eind opnieuw, isDone blijft false).
+    func toggleDone() {
+        if isDone {
+            isDone = false
+            return
+        }
+        if recurrence == .none {
+            isDone = true
+            return
+        }
+        // Terugkerend + net afgevinkt: verschuif planning naar volgende cyclus.
+        if let start = scheduledStart {
+            scheduledStart = recurrence.nextOccurrence(after: start)
+        }
+        if let end = scheduledEnd {
+            scheduledEnd = recurrence.nextOccurrence(after: end)
+        }
+        // isDone blijft false — er ontstaat vanzelf een nieuwe iteratie.
     }
 }

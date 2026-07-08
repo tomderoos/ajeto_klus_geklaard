@@ -93,7 +93,8 @@ private struct StatusToggle: View {
 
     var body: some View {
         Button {
-            chore.isDone.toggle()
+            chore.toggleDone()
+            NotificationService.rescheduleNotification(for: chore)
         } label: {
             HStack(spacing: 12) {
                 ZStack {

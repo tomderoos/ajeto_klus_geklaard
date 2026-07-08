@@ -10,6 +10,7 @@
 		03A8E083C1BD83DBB179FC80 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522688FD4371B30E2A9F8886 /* ProjectsView.swift */; };
 		07F6CA61E0E9015135A72894 /* RoomEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F38D677865D94AE9C553C /* RoomEditView.swift */; };
 		1EAC0F86CF1BA3B4B20D6CEE /* SpaceGrotesk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98392756859CF05D1BC25AC4 /* SpaceGrotesk.ttf */; };
+		23A66242C885D6065A4D5B88 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A61D921A268BA6E564C15 /* NotificationService.swift */; };
 		24F7062E5CD151F1F1E8FF38 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04FBEF2E363477442D9F287 /* Chore.swift */; };
 		2578350AC92A7D718A474008 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFCB7588636BDE5183391F1 /* Person.swift */; };
 		2AC44950CBE874570254587C /* ChorePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF471C884A5AFAE8FE86E9F /* ChorePhoto.swift */; };
@@ -26,6 +27,7 @@
 		8B8A43F5FD8781F72573C82A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */; };
 		8E27D2B327EC600ABF6674E4 /* BulkShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468A1C5A6840368D1B16BF07 /* BulkShareSheet.swift */; };
 		92E6F10BD0EEAA843403853D /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41136B7A16A39902315D75CE /* Room.swift */; };
+		930190B23D1DFD6D3068D31A /* Recurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3F81EFCC38E0F0D8803CC8 /* Recurrence.swift */; };
 		9B445343AD35BEAA50F380CD /* ImportChorePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9EFC235B7DA781999A7801 /* ImportChorePreviewView.swift */; };
 		9B6D935076B20626489A7143 /* PhotoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E489305DC9140A49604C3F3 /* PhotoStorage.swift */; };
 		9B9B068081EBB25F6BEBBAF8 /* AjetoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A8080EF61702A541139208 /* AjetoIcon.swift */; };
@@ -54,6 +56,7 @@
 		468A1C5A6840368D1B16BF07 /* BulkShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkShareSheet.swift; sourceTree = "<group>"; };
 		50156BA29EFAE15EAAC60EC5 /* AjetoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoTheme.swift; sourceTree = "<group>"; };
 		522688FD4371B30E2A9F8886 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
+		5B3A61D921A268BA6E564C15 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		648601B663492C695CD46E92 /* ProjectEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditView.swift; sourceTree = "<group>"; };
 		6C9F38D677865D94AE9C553C /* RoomEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEditView.swift; sourceTree = "<group>"; };
 		6D6B3610D950717D94E1B011 /* Ajeto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ajeto.entitlements; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 		DBDAAA3FB30C6E766A514CEB /* PersonEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonEditView.swift; sourceTree = "<group>"; };
 		E04FBEF2E363477442D9F287 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
 		F6166918D8F6FE5B44F757C6 /* RoomBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomBadge.swift; sourceTree = "<group>"; };
+		FE3F81EFCC38E0F0D8803CC8 /* Recurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recurrence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -128,6 +132,7 @@
 		3F56B86216ABDFECB8BA84A7 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				5B3A61D921A268BA6E564C15 /* NotificationService.swift */,
 				8E489305DC9140A49604C3F3 /* PhotoStorage.swift */,
 			);
 			path = Storage;
@@ -167,6 +172,7 @@
 				CCF4047619F06836806D7FB6 /* Household.swift */,
 				6FFCB7588636BDE5183391F1 /* Person.swift */,
 				439F590295543399019B7760 /* Project.swift */,
+				FE3F81EFCC38E0F0D8803CC8 /* Recurrence.swift */,
 				41136B7A16A39902315D75CE /* Room.swift */,
 			);
 			path = Models;
@@ -279,6 +285,7 @@
 				A15005F1485E4AF64087D767 /* ChoreSnapshot.swift in Sources */,
 				D9F2C96C76B201750BCFD906 /* Household.swift in Sources */,
 				9B445343AD35BEAA50F380CD /* ImportChorePreviewView.swift in Sources */,
+				23A66242C885D6065A4D5B88 /* NotificationService.swift in Sources */,
 				2578350AC92A7D718A474008 /* Person.swift in Sources */,
 				AE4242C6DA92FA66A46627E3 /* PersonBadge.swift in Sources */,
 				A2BC5466A376959FC911EC35 /* PersonEditView.swift in Sources */,
@@ -290,6 +297,7 @@
 				4C6B47A7616B5D7723EC0BB2 /* ProjectDetailView.swift in Sources */,
 				6B6249E4F16731B943B9CA80 /* ProjectEditView.swift in Sources */,
 				03A8E083C1BD83DBB179FC80 /* ProjectsView.swift in Sources */,
+				930190B23D1DFD6D3068D31A /* Recurrence.swift in Sources */,
 				92E6F10BD0EEAA843403853D /* Room.swift in Sources */,
 				42197D0978513AAB54C529CD /* RoomBadge.swift in Sources */,
 				07F6CA61E0E9015135A72894 /* RoomEditView.swift in Sources */,

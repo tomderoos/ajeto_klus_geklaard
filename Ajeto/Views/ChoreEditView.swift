@@ -23,6 +23,7 @@ struct ChoreEditView: View {
     @State private var selectedProjectID: PersistentIdentifier?
     @State private var selectedPersonIDs: Set<PersistentIdentifier> = []
     @State private var hasSchedule = false
+    @State private var recurrence: Recurrence = .none
     @State private var scheduledDate = Calendar.current.startOfDay(for: .now)
     @State private var startTime = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: .now) ?? .now
     @State private var endTime = Calendar.current.date(bySettingHour: 10, minute: 0, second: 0, of: .now) ?? .now
@@ -90,6 +91,13 @@ struct ChoreEditView: View {
                             DatePickerRow(label: "Start", selection: $startTime, components: .hourAndMinute)
                             Divider().overlay(AjetoColor.border)
                             DatePickerRow(label: "Eind", selection: $endTime, components: .hourAndMinute, range: startTime...)
+                            Divider().overlay(AjetoColor.border)
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Herhaling")
+                                    .font(AjetoFont.body(13, weight: .medium))
+                                    .foregroundStyle(AjetoColor.muted)
+                                RecurrencePicker(selection: $recurrence)
+                            }
                         }
                     }
 
@@ -180,6 +188,7 @@ struct ChoreEditView: View {
                 startTime = start
                 endTime = chore.scheduledEnd ?? start.addingTimeInterval(3600)
             }
+            recurrence = chore.recurrence
         }
     }
 
@@ -220,9 +229,11 @@ struct ChoreEditView: View {
         if hasSchedule {
             chore.scheduledStart = combine(date: scheduledDate, time: startTime)
             chore.scheduledEnd = combine(date: scheduledDate, time: endTime)
+            chore.recurrence = recurrence
         } else {
             chore.scheduledStart = nil
             chore.scheduledEnd = nil
+            chore.recurrence = .none
         }
         for data in newPhotoDatas {
             let photo = ChorePhoto(jpegData: data)
@@ -231,6 +242,9 @@ struct ChoreEditView: View {
             chore.photos?.append(photo)
         }
         newPhotoDatas.removeAll()
+
+        NotificationService.rescheduleNotification(for: chore)
+
         dismiss()
     }
 
@@ -261,6 +275,27 @@ private struct Section<Content: View>: View {
                 content()
             }
             .ajCard(padding: 16)
+        }
+    }
+}
+
+private struct RecurrencePicker: View {
+    @Binding var selection: Recurrence
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(Recurrence.allCases) { option in
+                    Chip(
+                        label: option.label,
+                        icon: option == .none ? nil : "arrow.triangle.2.circlepath",
+                        selected: selection == option
+                    ) {
+                        selection = option
+                    }
+                }
+            }
+            .padding(.vertical, 2)
         }
     }
 }

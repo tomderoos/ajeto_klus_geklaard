@@ -5,8 +5,10 @@ struct ChoreListView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Chore.createdAt, order: .reverse) private var allChores: [Chore]
     @Query(sort: \Room.sortOrder) private var rooms: [Room]
+    @Query(sort: \Project.createdAt, order: .reverse) private var projects: [Project]
 
     @State private var selectedRoomID: PersistentIdentifier? = nil
+    @State private var selectedProjectID: PersistentIdentifier? = nil
     @State private var showingNew = false
     @State private var showingRooms = false
     @State private var showingNewRoom = false
@@ -14,11 +16,14 @@ struct ChoreListView: View {
     @State private var bulkShare: BulkSharePayload?
 
     private var filteredChores: [Chore] {
-        let base: [Chore]
-        if let selectedRoomID {
-            base = allChores.filter { $0.room?.persistentModelID == selectedRoomID }
-        } else {
-            base = allChores
+        let base = allChores.filter { chore in
+            if let selectedRoomID, chore.room?.persistentModelID != selectedRoomID {
+                return false
+            }
+            if let selectedProjectID, chore.project?.persistentModelID != selectedProjectID {
+                return false
+            }
+            return true
         }
         return base.sorted { lhs, rhs in
             if lhs.isDone != rhs.isDone { return !lhs.isDone && rhs.isDone }
@@ -36,6 +41,15 @@ struct ChoreListView: View {
         return rooms.first { $0.persistentModelID == selectedRoomID }?.name
     }
 
+    private var selectedProjectName: String? {
+        guard let selectedProjectID else { return nil }
+        return projects.first { $0.persistentModelID == selectedProjectID }?.name
+    }
+
+    private var emptyStateContext: String? {
+        selectedProjectName ?? selectedRoomName
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -46,8 +60,14 @@ struct ChoreListView: View {
                         selectedID: $selectedRoomID,
                         onAddRoom: { showingNewRoom = true }
                     )
+                    if !projects.isEmpty {
+                        ProjectFilterBar(
+                            projects: projects,
+                            selectedID: $selectedProjectID
+                        )
+                    }
                     if filteredChores.isEmpty {
-                        EmptyState(roomName: selectedRoomName)
+                        EmptyState(context: emptyStateContext)
                     } else {
                         ScrollView {
                             LazyVStack(spacing: 12) {
@@ -119,7 +139,7 @@ struct ChoreListView: View {
             }
             .sheet(isPresented: $showingNew) {
                 NavigationStack {
-                    ChoreEditView(mode: .create(prefilledRoomID: selectedRoomID))
+                    ChoreEditView(mode: .create(prefilledRoomID: selectedRoomID, prefilledProjectID: selectedProjectID))
                 }
             }
             .sheet(isPresented: $showingRooms) {
@@ -159,6 +179,7 @@ struct ChoreListView: View {
     }
 
     private func delete(_ chore: Chore) {
+        NotificationService.cancel(for: chore)
         for photo in chore.photosList {
             if !photo.filename.isEmpty {
                 PhotoStorage.delete(photo.filename)
@@ -195,6 +216,38 @@ private struct RoomFilterBar: View {
     }
 }
 
+private struct ProjectFilterBar: View {
+    let projects: [Project]
+    @Binding var selectedID: PersistentIdentifier?
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                Chip(
+                    label: "Alle projecten",
+                    icon: "square.stack.3d.up",
+                    selected: selectedID == nil,
+                    accent: AjetoColor.blue
+                ) {
+                    selectedID = nil
+                }
+                ForEach(projects) { project in
+                    Chip(
+                        label: project.name.isEmpty ? "Zonder titel" : project.name,
+                        icon: project.isCompleted ? "checkmark.seal" : nil,
+                        selected: selectedID == project.persistentModelID,
+                        accent: AjetoColor.blue
+                    ) {
+                        selectedID = (selectedID == project.persistentModelID) ? nil : project.persistentModelID
+                    }
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 8)
+        }
+    }
+}
+
 private struct AddRoomChip: View {
     let action: () -> Void
 
@@ -222,6 +275,7 @@ private struct Chip: View {
     let label: String
     let icon: String?
     let selected: Bool
+    var accent: Color = AjetoColor.green
     let action: () -> Void
 
     var body: some View {
@@ -232,10 +286,10 @@ private struct Chip: View {
                 }
                 Text(label).font(AjetoFont.body(13, weight: .semibold))
             }
-            .foregroundStyle(selected ? AjetoColor.ink : AjetoColor.muted)
+            .foregroundStyle(selected ? (accent == AjetoColor.green ? AjetoColor.ink : .white) : AjetoColor.muted)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(selected ? AjetoColor.green : AjetoColor.surface, in: Capsule())
+            .background(selected ? accent : AjetoColor.surface, in: Capsule())
             .overlay(
                 Capsule().stroke(selected ? .clear : AjetoColor.border, lineWidth: 1)
             )
@@ -245,14 +299,14 @@ private struct Chip: View {
 }
 
 private struct EmptyState: View {
-    let roomName: String?
+    let context: String?
 
     var body: some View {
         VStack(spacing: 22) {
             Spacer(minLength: 40)
             AjetoBrandIcon(size: 96, glow: true)
             VStack(spacing: 8) {
-                Text(roomName == nil ? "Nog geen klussen" : "Niks te doen in \(roomName!)")
+                Text(context == nil ? "Nog geen klussen" : "Niks te doen in \(context!)")
                     .ajTitle()
                     .multilineTextAlignment(.center)
                 Text("Tik op + om een klus toe te voegen.")
@@ -290,6 +344,18 @@ private struct ChoreRow: View {
                         }
                         .font(AjetoFont.body(11, weight: .medium))
                         .foregroundStyle(AjetoColor.muted)
+                    }
+                    if chore.recurrence != .none {
+                        HStack(spacing: 3) {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                                .font(.system(size: 9, weight: .semibold))
+                            Text(chore.recurrence.shortLabel)
+                                .font(AjetoFont.body(10, weight: .semibold))
+                        }
+                        .foregroundStyle(AjetoColor.blue)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(AjetoColor.sky, in: Capsule())
                     }
                 }
             }
