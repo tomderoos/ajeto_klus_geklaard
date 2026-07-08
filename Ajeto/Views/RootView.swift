@@ -21,6 +21,7 @@ struct RootView: View {
                 .tabItem { Label("Planning", systemImage: "calendar") }
         }
         .tint(AjetoColor.ink)
+        .preferredColorScheme(.light)
         .onAppear {
             if !hasSeenOnboarding {
                 showingOnboarding = true

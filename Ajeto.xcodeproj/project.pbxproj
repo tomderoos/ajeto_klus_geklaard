@@ -81,7 +81,7 @@
 		B2056D3F9CCC50A5AB0E08DA /* ChoreSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreSnapshot.swift; sourceTree = "<group>"; };
 		B4BF23108035A6E1C9E8BFC7 /* AjetoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoApp.swift; sourceTree = "<group>"; };
 		B58F9CD9569AAE322F6C2895 /* ChoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreListView.swift; sourceTree = "<group>"; };
-		C148138680B7720D9793C25A /* Ajeto.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ajeto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C148138680B7720D9793C25A /* Ajeto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ajeto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2612087C938489DA7B45D60 /* PersonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonBadge.swift; sourceTree = "<group>"; };
 		C59C1CFA3BB0C784B7EF1592 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		CCF4047619F06836806D7FB6 /* Household.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Household.swift; sourceTree = "<group>"; };
@@ -234,7 +234,6 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					6C5E72E8A7FC9399EE762874 = {
-						DevelopmentTeam = 7K85BU47R9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -386,7 +385,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ajeto/Ajeto.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7K85BU47R9;
+				DEVELOPMENT_TEAM = R3S6B9CNU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ajeto/Info.plist;
@@ -478,7 +477,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ajeto/Ajeto.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7K85BU47R9;
+				DEVELOPMENT_TEAM = R3S6B9CNU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ajeto/Info.plist;
