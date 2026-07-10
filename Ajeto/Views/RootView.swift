@@ -13,6 +13,11 @@ struct RootView: View {
     @AppStorage("userName") private var userName: String = ""
     @State private var showingOnboarding: Bool = false
     @State private var showingNameEntry: Bool = false
+    /// Laatste keer dat DedupMigration draaide. Voorkomt dat een flood van
+    /// CloudKit remote-change notifications de main thread blokkeert (elke
+    /// migratie doet fetch + save op de main actor).
+    @State private var lastDedupRun: Date = .distantPast
+    private let dedupCooldown: TimeInterval = 8
 
     init() {
         Self.configureAppearance()
@@ -29,12 +34,10 @@ struct RootView: View {
         }
         .tint(AjetoColor.ink)
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active {
-                DedupMigration.run(context)
-            }
+            if phase == .active { runDedupThrottled() }
         }
         .onReceive(remoteChanges) { _ in
-            DedupMigration.run(context)
+            runDedupThrottled()
         }
         .preferredColorScheme(.light)
         .onAppear {
@@ -87,6 +90,17 @@ struct RootView: View {
         } catch {
             importErrorMessage = "Het gedeelde bestand kon niet worden ingelezen."
         }
+    }
+
+    /// Vuurt DedupMigration alleen af als 't > `dedupCooldown` geleden is dat
+    /// 'ie draaide. Bij een burst CloudKit remote-change notifications
+    /// (bv. wanneer een tweede device zich net na wat offline-werk sync'd)
+    /// zou dat anders elke keystroke op de main thread wegvreten.
+    private func runDedupThrottled() {
+        let now = Date.now
+        guard now.timeIntervalSince(lastDedupRun) > dedupCooldown else { return }
+        lastDedupRun = now
+        DedupMigration.run(context)
     }
 
     private static func configureAppearance() {
