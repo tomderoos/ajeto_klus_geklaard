@@ -1,20 +1,23 @@
 import SwiftUI
 
 enum AjetoColor {
-    static let green      = Color(hex: 0x12CE8E)
-    static let greenInk   = Color(hex: 0x0B2E22)
-    static let blue       = Color(hex: 0x2563FF)
-    static let ink        = Color(hex: 0x0B1F3A)
+    // Huisstijl 1c: donker-groen primary + warm goud accent op grijs-wit surface.
+    // Variabele-namen blijven historisch (green/blue/mint/sky) zodat views niet
+    // aangeraakt hoeven te worden; alleen de hex-waarden veranderen mee.
+    static let green      = Color(hex: 0x269143) // primary
+    static let greenInk   = Color(hex: 0x005F1D) // primary deep
+    static let blue       = Color(hex: 0xDAA42F) // accent (goud)
+    static let ink        = Color(hex: 0x10171C) // text
 
-    static let mint       = Color(hex: 0xE5F4EC)
-    static let sky        = Color(hex: 0xEAF1FF)
-    static let paper      = Color(hex: 0xF6F9FC)
+    static let mint       = Color(hex: 0xC1E6C5) // primary soft
+    static let sky        = Color(hex: 0xF9E1B8) // accent soft
+    static let paper      = Color(hex: 0xF7F9FA) // background
     static let surface    = Color.white
-    static let border     = Color(hex: 0xEAF0F6)
-    static let muted      = Color(hex: 0x6D8296)
-    static let faint      = Color(hex: 0xA6B3C2)
+    static let border     = Color(hex: 0xDEE2E5)
+    static let muted      = Color(hex: 0x5D646A) // text muted
+    static let faint      = Color(hex: 0xA8AFB5) // grayscale tussen border en muted
 
-    static let onDarkAccent = Color(hex: 0x58E0AE)
+    static let onDarkAccent = Color(hex: 0x7CC890) // primary variant voor donkere vlakken
 }
 
 enum AjetoRadius {
@@ -26,11 +29,11 @@ enum AjetoRadius {
 
 enum AjetoShadow {
     static let card = Shadow(
-        color: Color(hex: 0x0B1F3A).opacity(0.12),
+        color: Color(hex: 0x10171C).opacity(0.10),
         radius: 35, x: 0, y: 15
     )
     static let green = Shadow(
-        color: AjetoColor.green.opacity(0.45),
+        color: AjetoColor.green.opacity(0.35),
         radius: 18, x: 0, y: 10
     )
 
@@ -43,8 +46,10 @@ enum AjetoShadow {
 }
 
 enum AjetoFont {
-    static let displayFamily = "Space Grotesk"
-    static let bodyFamily    = "Hanken Grotesk"
+    // Huisstijl 1c: Fredoka (rond, vriendelijk) voor koppen en logo,
+    // Nunito (helder, breed weight-range) voor body en UI-tekst.
+    static let displayFamily = "Fredoka"
+    static let bodyFamily    = "Nunito"
 
     static func display(_ size: CGFloat, weight: Font.Weight = .bold) -> Font {
         .custom(displayFamily, size: size).weight(weight)

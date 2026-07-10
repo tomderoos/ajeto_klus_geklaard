@@ -41,8 +41,8 @@
 	<string>Om foto's uit je bibliotheek toe te voegen bij klussen.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>SpaceGrotesk.ttf</string>
-		<string>HankenGrotesk.ttf</string>
+		<string>Fredoka.ttf</string>
+		<string>Nunito.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

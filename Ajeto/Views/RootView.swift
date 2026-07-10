@@ -86,14 +86,14 @@ struct RootView: View {
         nav.shadowColor = .clear
         nav.titleTextAttributes = [
             .foregroundColor: UIColor(AjetoColor.ink),
-            .font: UIFont(name: "SpaceGrotesk-SemiBold", size: 17)
+            .font: UIFont(name: "Fredoka-SemiBold", size: 17)
                 ?? .systemFont(ofSize: 17, weight: .semibold)
         ]
         nav.largeTitleTextAttributes = [
             .foregroundColor: UIColor(AjetoColor.ink),
-            .font: UIFont(name: "SpaceGrotesk-Bold", size: 34)
+            .font: UIFont(name: "Fredoka-Bold", size: 34)
                 ?? .systemFont(ofSize: 34, weight: .bold),
-            .kern: -0.6
+            .kern: -0.4
         ]
         UINavigationBar.appearance().standardAppearance = nav
         UINavigationBar.appearance().scrollEdgeAppearance = nav

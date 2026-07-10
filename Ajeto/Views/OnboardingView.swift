@@ -150,7 +150,7 @@ private struct OnboardingSlide {
     static let all: [OnboardingSlide] = [
         OnboardingSlide(
             eyebrow: "WELKOM",
-            title: "Ajeto",
+            title: "Ajeto!",
             body: "Houd bij wat er in en om het huis moet gebeuren, van 'lampje vervangen' tot 'zolder opknappen'. Vink af wat je hebt gedaan.",
             visual: .brandIcon
         ),

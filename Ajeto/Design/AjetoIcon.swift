@@ -58,7 +58,8 @@ private struct CheckmarkShape: Shape {
     }
 }
 
-/// Horizontale lockup — icoon + "Ajeto" woordmerk, eventueel tagline eronder.
+/// Horizontale lockup — icoon + "Ajeto!" woordmerk (uitroepteken in accent-goud),
+/// eventueel tagline eronder. Fredoka bold voor het woordmerk, matcht het app-icoon.
 struct AjetoLogoLockup: View {
     var iconSize: CGFloat = 44
     var showTagline: Bool = false
@@ -68,19 +69,27 @@ struct AjetoLogoLockup: View {
         HStack(spacing: 12) {
             AjetoBrandIcon(size: iconSize)
             VStack(alignment: .leading, spacing: 2) {
-                Text("Ajeto")
-                    .font(AjetoFont.display(iconSize * 0.72, weight: .bold))
-                    .tracking(-iconSize * 0.03)
-                    .foregroundStyle(onDark ? Color.white : AjetoColor.ink)
+                wordmark
                 if showTagline {
                     Text("Klus geklaard")
                         .font(AjetoFont.display(max(9, iconSize * 0.22), weight: .medium))
-                        .tracking(1.6)
+                        .tracking(1.4)
                         .textCase(.uppercase)
                         .foregroundStyle(onDark ? AjetoColor.onDarkAccent : AjetoColor.blue)
                 }
             }
         }
+    }
+
+    private var wordmark: some View {
+        let size = iconSize * 0.72
+        return HStack(spacing: 0) {
+            Text("Ajeto")
+                .foregroundStyle(onDark ? Color.white : AjetoColor.ink)
+            Text("!")
+                .foregroundStyle(AjetoColor.blue) // accent goud
+        }
+        .font(AjetoFont.display(size, weight: .bold))
     }
 }
 

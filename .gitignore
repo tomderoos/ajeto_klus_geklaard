@@ -33,3 +33,6 @@ fastlane/test_output
 # Env / secrets
 *.env
 .env.local
+
+# Design handoff bundles blijven lokaal — assets zijn al in Ajeto/Assets.xcassets/ en Ajeto/Fonts/
+design_handoff_*/

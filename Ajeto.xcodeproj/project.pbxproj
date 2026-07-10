@@ -10,7 +10,6 @@
 		03A8E083C1BD83DBB179FC80 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522688FD4371B30E2A9F8886 /* ProjectsView.swift */; };
 		07F6CA61E0E9015135A72894 /* RoomEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F38D677865D94AE9C553C /* RoomEditView.swift */; };
 		0F73C0EBDD5D3BB857C06F42 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219AEE555DA896EC2E5183CD /* OnboardingView.swift */; };
-		1EAC0F86CF1BA3B4B20D6CEE /* SpaceGrotesk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98392756859CF05D1BC25AC4 /* SpaceGrotesk.ttf */; };
 		23A66242C885D6065A4D5B88 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A61D921A268BA6E564C15 /* NotificationService.swift */; };
 		24F7062E5CD151F1F1E8FF38 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04FBEF2E363477442D9F287 /* Chore.swift */; };
 		2578350AC92A7D718A474008 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFCB7588636BDE5183391F1 /* Person.swift */; };
@@ -20,10 +19,11 @@
 		4497CA76E81924D6CD8525BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD39F4461869D9082D6BE36 /* Assets.xcassets */; };
 		465C31BDCAD4CC29F074FDB9 /* ChoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33148AE9A11D37B4C16A083A /* ChoreEditView.swift */; };
 		4C6B47A7616B5D7723EC0BB2 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59C1CFA3BB0C784B7EF1592 /* ProjectDetailView.swift */; };
-		4EB2CB41610030E2F256136C /* HankenGrotesk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87506B2714CCC9E35AF3CA07 /* HankenGrotesk.ttf */; };
 		5212B1577AE2E44B467FEB14 /* PhotoGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A7104BD16AFA7777B7F97 /* PhotoGalleryView.swift */; };
 		5F57BBAB6CC17CF33C434112 /* PlanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7256C3D5B5F518D24EEAE188 /* PlanningView.swift */; };
 		6B6249E4F16731B943B9CA80 /* ProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648601B663492C695CD46E92 /* ProjectEditView.swift */; };
+		817C808A76D552E8D594BACC /* Nunito.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73D11E35808D376BC93E6F9B /* Nunito.ttf */; };
+		83F74DAEDC4771389F51DE52 /* Fredoka.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99A9BA0F917D6110B026C93C /* Fredoka.ttf */; };
 		8918A28B4DC778CE773B96E5 /* PersonsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8CE762A20C05B621FD9D1 /* PersonsSheetView.swift */; };
 		8B8A43F5FD8781F72573C82A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */; };
 		8E27D2B327EC600ABF6674E4 /* BulkShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468A1C5A6840368D1B16BF07 /* BulkShareSheet.swift */; };
@@ -66,12 +66,12 @@
 		6FFCB7588636BDE5183391F1 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		714429899D5E95E32E62D7F7 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
 		7256C3D5B5F518D24EEAE188 /* PlanningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningView.swift; sourceTree = "<group>"; };
+		73D11E35808D376BC93E6F9B /* Nunito.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nunito.ttf; sourceTree = "<group>"; };
 		7CF471C884A5AFAE8FE86E9F /* ChorePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChorePhoto.swift; sourceTree = "<group>"; };
-		87506B2714CCC9E35AF3CA07 /* HankenGrotesk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HankenGrotesk.ttf; sourceTree = "<group>"; };
 		8E489305DC9140A49604C3F3 /* PhotoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStorage.swift; sourceTree = "<group>"; };
 		938545DDD0C69EE338DF3AF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		98392756859CF05D1BC25AC4 /* SpaceGrotesk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGrotesk.ttf; sourceTree = "<group>"; };
 		98A8080EF61702A541139208 /* AjetoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoIcon.swift; sourceTree = "<group>"; };
+		99A9BA0F917D6110B026C93C /* Fredoka.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fredoka.ttf; sourceTree = "<group>"; };
 		9B1DC9AAF9C74FC04CF467F6 /* ChoreImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreImport.swift; sourceTree = "<group>"; };
 		9CCD16AFEF6AEB968CC69ED2 /* DedupMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DedupMigration.swift; sourceTree = "<group>"; };
 		A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 		B2056D3F9CCC50A5AB0E08DA /* ChoreSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreSnapshot.swift; sourceTree = "<group>"; };
 		B4BF23108035A6E1C9E8BFC7 /* AjetoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoApp.swift; sourceTree = "<group>"; };
 		B58F9CD9569AAE322F6C2895 /* ChoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreListView.swift; sourceTree = "<group>"; };
-		C148138680B7720D9793C25A /* Ajeto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ajeto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C148138680B7720D9793C25A /* Ajeto.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ajeto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2612087C938489DA7B45D60 /* PersonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonBadge.swift; sourceTree = "<group>"; };
 		C59C1CFA3BB0C784B7EF1592 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		CCF4047619F06836806D7FB6 /* Household.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Household.swift; sourceTree = "<group>"; };
@@ -187,8 +187,8 @@
 		D5C92A9C0FF8E356D941A7B5 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				87506B2714CCC9E35AF3CA07 /* HankenGrotesk.ttf */,
-				98392756859CF05D1BC25AC4 /* SpaceGrotesk.ttf */,
+				99A9BA0F917D6110B026C93C /* Fredoka.ttf */,
+				73D11E35808D376BC93E6F9B /* Nunito.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -234,6 +234,7 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					6C5E72E8A7FC9399EE762874 = {
+						DevelopmentTeam = 7K85BU47R9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -263,8 +264,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4497CA76E81924D6CD8525BA /* Assets.xcassets in Resources */,
-				4EB2CB41610030E2F256136C /* HankenGrotesk.ttf in Resources */,
-				1EAC0F86CF1BA3B4B20D6CEE /* SpaceGrotesk.ttf in Resources */,
+				83F74DAEDC4771389F51DE52 /* Fredoka.ttf in Resources */,
+				817C808A76D552E8D594BACC /* Nunito.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,7 +386,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ajeto/Ajeto.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R3S6B9CNU9;
+				DEVELOPMENT_TEAM = 7K85BU47R9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ajeto/Info.plist;
@@ -477,7 +478,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ajeto/Ajeto.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R3S6B9CNU9;
+				DEVELOPMENT_TEAM = 7K85BU47R9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ajeto/Info.plist;
