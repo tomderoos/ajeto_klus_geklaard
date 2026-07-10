@@ -51,4 +51,35 @@ final class Person {
     static func nextColor(existingCount: Int) -> UInt32 {
         palette[existingCount % palette.count]
     }
+
+    /// Vindt een bestaande Person met dezelfde genormaliseerde naam of maakt
+    /// er één aan. Gebruikt voor de "ik"-persoon uit de onboarding: als de
+    /// gebruiker op device B ook z'n naam invult, matcht die op CloudKit-
+    /// synced Person i.p.v. een dubbele te maken.
+    @MainActor
+    static func findOrCreate(
+        name: String,
+        in context: ModelContext,
+        household: Household?
+    ) -> Person? {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        let lowered = trimmed.lowercased()
+
+        if let all = try? context.fetch(FetchDescriptor<Person>()),
+           let existing = all.first(where: { $0.name.lowercased() == lowered }) {
+            return existing
+        }
+
+        let all = (try? context.fetch(FetchDescriptor<Person>())) ?? []
+        let person = Person(
+            name: trimmed,
+            colorHex: Person.nextColor(existingCount: all.count),
+            sortOrder: (all.map(\.sortOrder).max() ?? -1) + 1
+        )
+        person.household = household
+        context.insert(person)
+        try? context.save()
+        return person
+    }
 }
