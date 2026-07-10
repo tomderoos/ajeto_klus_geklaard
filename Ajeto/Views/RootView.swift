@@ -10,7 +10,9 @@ struct RootView: View {
     @State private var pendingImport: PendingImport?
     @State private var importErrorMessage: String?
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding: Bool = false
+    @AppStorage("userName") private var userName: String = ""
     @State private var showingOnboarding: Bool = false
+    @State private var showingNameEntry: Bool = false
 
     init() {
         Self.configureAppearance()
@@ -38,12 +40,20 @@ struct RootView: View {
         .onAppear {
             if !hasSeenOnboarding {
                 showingOnboarding = true
+            } else if userName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                showingNameEntry = true
             }
         }
         .sheet(isPresented: $showingOnboarding, onDismiss: {
             hasSeenOnboarding = true
+            if userName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                showingNameEntry = true
+            }
         }) {
             OnboardingView()
+        }
+        .sheet(isPresented: $showingNameEntry) {
+            NameEntrySheet(mode: .introduction)
         }
         .onOpenURL(perform: handleIncoming)
         .sheet(item: $pendingImport) { pending in

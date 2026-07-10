@@ -195,7 +195,7 @@ struct ChoreListView: View {
                 OnboardingView()
             }
             .sheet(isPresented: $showingNameEditor) {
-                NameEditorSheet()
+                NameEntrySheet(mode: .change)
                     .presentationDetents([.medium])
             }
         }
@@ -440,106 +440,3 @@ private struct DoneBadge: View {
     }
 }
 
-/// Compacte sheet om je voornaam achteraf te wijzigen. Update de @AppStorage
-/// waarde die de begroeting voedt, én hernoemt de bijbehorende Person zodat
-/// bestaande klus-toewijzingen behouden blijven.
-private struct NameEditorSheet: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var context
-    @AppStorage("userName") private var userName: String = ""
-
-    @State private var draft: String = ""
-    @FocusState private var focused: Bool
-
-    private var canSave: Bool {
-        !draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-    }
-
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                AjetoColor.paper.ignoresSafeArea()
-                VStack(spacing: 20) {
-                    ZStack {
-                        Circle().fill(AjetoColor.mint)
-                        Image(systemName: "hand.wave.fill")
-                            .font(.system(size: 34, weight: .semibold))
-                            .foregroundStyle(AjetoColor.greenInk)
-                    }
-                    .frame(width: 72, height: 72)
-
-                    VStack(spacing: 6) {
-                        Text("Jouw voornaam")
-                            .font(AjetoFont.display(20, weight: .bold))
-                            .tracking(-0.3)
-                            .foregroundStyle(AjetoColor.ink)
-                        Text("Wordt gebruikt voor de begroeting en om klussen aan jezelf toe te wijzen.")
-                            .ajCaption()
-                            .multilineTextAlignment(.center)
-                    }
-                    .padding(.horizontal, 24)
-
-                    TextField("Voornaam", text: $draft)
-                        .font(AjetoFont.display(18, weight: .semibold))
-                        .foregroundStyle(AjetoColor.ink)
-                        .tint(AjetoColor.green)
-                        .textInputAutocapitalization(.words)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
-                        .background(AjetoColor.surface, in: Capsule())
-                        .overlay(Capsule().stroke(AjetoColor.border, lineWidth: 1))
-                        .focused($focused)
-                        .padding(.horizontal, 24)
-
-                    Spacer()
-                }
-                .padding(.top, 32)
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(AjetoColor.paper, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Annuleer") { dismiss() }
-                        .font(AjetoFont.body(15, weight: .medium))
-                        .foregroundStyle(AjetoColor.muted)
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Bewaar", action: save)
-                        .font(AjetoFont.body(15, weight: .bold))
-                        .foregroundStyle(canSave ? AjetoColor.blue : AjetoColor.faint)
-                        .disabled(!canSave)
-                }
-            }
-            .onAppear {
-                draft = userName
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    focused = true
-                }
-            }
-        }
-    }
-
-    private func save() {
-        let trimmed = draft.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
-
-        // Bestaande "ik"-Person hernoemen als naam-match klopte, anders nieuw
-        // maken. Hierdoor blijven eerdere klus-toewijzingen intact.
-        let old = userName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        if !old.isEmpty,
-           let all = try? context.fetch(FetchDescriptor<Person>()),
-           let existing = all.first(where: { $0.name.lowercased() == old }) {
-            existing.name = trimmed
-            try? context.save()
-        } else {
-            _ = Person.findOrCreate(
-                name: trimmed,
-                in: context,
-                household: Household.primary(in: context)
-            )
-        }
-        userName = trimmed
-        dismiss()
-    }
-}
