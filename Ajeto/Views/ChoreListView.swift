@@ -9,6 +9,7 @@ struct ChoreListView: View {
 
     @State private var selectedRoomID: PersistentIdentifier? = nil
     @State private var selectedProjectID: PersistentIdentifier? = nil
+    @State private var selectedSize: ChoreSize? = nil
     @AppStorage("userName") private var userName: String = ""
     @State private var showingNameEditor = false
     @State private var showingNew = false
@@ -24,6 +25,9 @@ struct ChoreListView: View {
                 return false
             }
             if let selectedProjectID, chore.project?.persistentModelID != selectedProjectID {
+                return false
+            }
+            if let selectedSize, chore.size != selectedSize {
                 return false
             }
             return true
@@ -87,6 +91,7 @@ struct ChoreListView: View {
                             selectedID: $selectedProjectID
                         )
                     }
+                    SizeFilterBar(selection: $selectedSize)
                     if filteredChores.isEmpty {
                         EmptyState(context: emptyStateContext)
                     } else {
@@ -258,6 +263,46 @@ private struct RoomFilterBar: View {
     }
 }
 
+private struct SizeFilterBar: View {
+    @Binding var selection: ChoreSize?
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Button {
+                selection = nil
+            } label: {
+                Text("Alle groottes")
+                    .font(AjetoFont.body(13, weight: .semibold))
+                    .foregroundStyle(selection == nil ? AjetoColor.ink : AjetoColor.muted)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(selection == nil ? AjetoColor.green : AjetoColor.surface, in: Capsule())
+                    .overlay(Capsule().stroke(selection == nil ? .clear : AjetoColor.border, lineWidth: 1))
+            }
+            .buttonStyle(.plain)
+
+            ForEach([ChoreSize.small, .medium, .large]) { size in
+                let isSelected = selection == size
+                Button {
+                    selection = isSelected ? nil : size
+                } label: {
+                    Text(size.shortLabel)
+                        .font(AjetoFont.body(13, weight: .semibold))
+                        .foregroundStyle(isSelected ? size.badgeForeground : AjetoColor.muted)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(isSelected ? size.badgeBackground : AjetoColor.surface, in: Capsule())
+                        .overlay(Capsule().stroke(isSelected ? .clear : AjetoColor.border, lineWidth: 1))
+                }
+                .buttonStyle(.plain)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, 16)
+        .padding(.bottom, 8)
+    }
+}
+
 private struct ProjectFilterBar: View {
     let projects: [Project]
     @Binding var selectedID: PersistentIdentifier?
@@ -374,7 +419,10 @@ private struct ChoreRow: View {
                     .tracking(-0.3)
                     .foregroundStyle(chore.isDone ? AjetoColor.muted : AjetoColor.ink)
                     .strikethrough(chore.isDone)
-                HStack(spacing: 8) {
+                HStack(spacing: 6) {
+                    if chore.size != .unset {
+                        SizeBadge(size: chore.size)
+                    }
                     if let room = chore.room {
                         RoomBadge(room: room, compact: true)
                     }
@@ -425,6 +473,20 @@ private struct ChoreRow: View {
         } else {
             AjetoBrandIcon(size: 56, background: AjetoColor.mint, checkColor: AjetoColor.green)
         }
+    }
+}
+
+private struct SizeBadge: View {
+    let size: ChoreSize
+
+    var body: some View {
+        Text(size.shortLabel)
+            .font(AjetoFont.body(10, weight: .bold))
+            .textCase(.uppercase)
+            .foregroundStyle(size.badgeForeground)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 3)
+            .background(size.badgeBackground, in: Capsule())
     }
 }
 

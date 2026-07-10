@@ -11,6 +11,8 @@ final class Chore {
     var createdAt: Date = Date.now
     /// Opgeslagen als String voor CloudKit-compat. Gebruik `recurrence` voor typed access.
     var recurrenceRaw: String = Recurrence.none.rawValue
+    /// Idem voor `size` — klein/middel/groot ingeschatte klus-grootte.
+    var sizeRaw: String = ChoreSize.unset.rawValue
     /// Stabiele identifier die overleeft over app-launches en devices — nodig
     /// om lokale notificaties consistent te kunnen (her)plannen en cancelen.
     var stableID: String = UUID().uuidString
@@ -50,6 +52,11 @@ final class Chore {
     var recurrence: Recurrence {
         get { Recurrence(rawValue: recurrenceRaw) ?? .none }
         set { recurrenceRaw = newValue.rawValue }
+    }
+
+    var size: ChoreSize {
+        get { ChoreSize(rawValue: sizeRaw) ?? .unset }
+        set { sizeRaw = newValue.rawValue }
     }
 
     /// Toggle het afgevinkt-veld. Voor terugkerende klussen: bij aan-tikken

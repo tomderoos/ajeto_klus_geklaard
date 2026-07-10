@@ -22,6 +22,16 @@ struct ChoreDetailView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         StatusToggle(chore: chore)
 
+                        if chore.size != .unset {
+                            InfoRow(icon: "square.stack", label: "Grootte") {
+                                Text(chore.size.label)
+                                    .foregroundStyle(chore.size.badgeForeground)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 4)
+                                    .background(chore.size.badgeBackground, in: Capsule())
+                            }
+                        }
+
                         if let room = chore.room {
                             InfoRow(icon: "square.grid.2x2", label: "Ruimte") {
                                 HStack(spacing: 6) {

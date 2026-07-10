@@ -24,6 +24,7 @@
 		5F57BBAB6CC17CF33C434112 /* PlanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7256C3D5B5F518D24EEAE188 /* PlanningView.swift */; };
 		6B6249E4F16731B943B9CA80 /* ProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648601B663492C695CD46E92 /* ProjectEditView.swift */; };
 		817C808A76D552E8D594BACC /* Nunito.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73D11E35808D376BC93E6F9B /* Nunito.ttf */; };
+		82CCC4F0E3E21B00F30A7123 /* ChoreSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CCF2DC2BAF134F5FFD143 /* ChoreSize.swift */; };
 		83F74DAEDC4771389F51DE52 /* Fredoka.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99A9BA0F917D6110B026C93C /* Fredoka.ttf */; };
 		8918A28B4DC778CE773B96E5 /* PersonsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8CE762A20C05B621FD9D1 /* PersonsSheetView.swift */; };
 		8B8A43F5FD8781F72573C82A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		016CCF2DC2BAF134F5FFD143 /* ChoreSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreSize.swift; sourceTree = "<group>"; };
 		19575A8D890A507E39BD3347 /* ChoreExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreExport.swift; sourceTree = "<group>"; };
 		219AEE555DA896EC2E5183CD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		254C0748C348D9877F4DD173 /* RoomsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsSheetView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				E04FBEF2E363477442D9F287 /* Chore.swift */,
 				7CF471C884A5AFAE8FE86E9F /* ChorePhoto.swift */,
+				016CCF2DC2BAF134F5FFD143 /* ChoreSize.swift */,
 				CCF4047619F06836806D7FB6 /* Household.swift */,
 				6FFCB7588636BDE5183391F1 /* Person.swift */,
 				439F590295543399019B7760 /* Project.swift */,
@@ -291,6 +294,7 @@
 				CE7703A5B11D91A10FF73B6B /* ChoreImport.swift in Sources */,
 				AF21FA28F0A9DA532DA47348 /* ChoreListView.swift in Sources */,
 				2AC44950CBE874570254587C /* ChorePhoto.swift in Sources */,
+				82CCC4F0E3E21B00F30A7123 /* ChoreSize.swift in Sources */,
 				A15005F1485E4AF64087D767 /* ChoreSnapshot.swift in Sources */,
 				EB50EC5D5AC3ECDD95F608F3 /* DedupMigration.swift in Sources */,
 				D9F2C96C76B201750BCFD906 /* Household.swift in Sources */,

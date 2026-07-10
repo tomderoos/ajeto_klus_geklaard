@@ -22,6 +22,7 @@ struct ChoreEditView: View {
     @State private var selectedRoomID: PersistentIdentifier?
     @State private var selectedProjectID: PersistentIdentifier?
     @State private var selectedPersonIDs: Set<PersistentIdentifier> = []
+    @State private var selectedSize: ChoreSize = .unset
     @State private var hasSchedule = false
     @State private var recurrence: Recurrence = .none
     @State private var scheduledDate = Calendar.current.startOfDay(for: .now)
@@ -56,6 +57,11 @@ struct ChoreEditView: View {
                         Field(placeholder: "Titel (bv. voordeur schilderen)", text: $title)
                             .focused($titleFocused)
                         MultilineField(placeholder: "Beschrijving", text: $details)
+                    }
+
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Grootte").ajEyebrow(AjetoColor.muted)
+                        SizePicker(selection: $selectedSize)
                     }
 
                     if !rooms.isEmpty {
@@ -193,6 +199,7 @@ struct ChoreEditView: View {
             selectedRoomID = chore.room?.persistentModelID
             selectedProjectID = chore.project?.persistentModelID
             selectedPersonIDs = Set((chore.assignees ?? []).map(\.persistentModelID))
+            selectedSize = chore.size
             if let start = chore.scheduledStart {
                 hasSchedule = true
                 scheduledDate = Calendar.current.startOfDay(for: start)
@@ -237,6 +244,7 @@ struct ChoreEditView: View {
         chore.room = rooms.first { $0.persistentModelID == selectedRoomID }
         chore.project = projects.first { $0.persistentModelID == selectedProjectID }
         chore.assignees = persons.filter { selectedPersonIDs.contains($0.persistentModelID) }
+        chore.size = selectedSize
         if hasSchedule {
             chore.scheduledStart = combine(date: scheduledDate, time: startTime)
             chore.scheduledEnd = combine(date: scheduledDate, time: endTime)
@@ -291,6 +299,39 @@ private struct Section<Content: View>: View {
                 content()
             }
             .ajCard(padding: 16)
+        }
+    }
+}
+
+private struct SizePicker: View {
+    @Binding var selection: ChoreSize
+
+    var body: some View {
+        HStack(spacing: 8) {
+            ForEach(ChoreSize.allCases) { size in
+                Button {
+                    selection = size
+                } label: {
+                    Text(size == .unset ? "Geen" : size.shortLabel)
+                        .font(AjetoFont.body(13, weight: .semibold))
+                        .foregroundStyle(
+                            selection == size ? size.badgeForeground : AjetoColor.muted
+                        )
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(
+                            selection == size ? size.badgeBackground : AjetoColor.surface,
+                            in: Capsule()
+                        )
+                        .overlay(
+                            Capsule().stroke(
+                                selection == size ? .clear : AjetoColor.border,
+                                lineWidth: 1
+                            )
+                        )
+                }
+                .buttonStyle(.plain)
+            }
         }
     }
 }
