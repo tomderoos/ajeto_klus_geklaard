@@ -3,8 +3,11 @@ import SwiftData
 
 struct ChoreDetailView: View {
     @Bindable var chore: Chore
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
     @State private var showingEdit = false
     @State private var shareURL: URL?
+    @State private var confirmingDelete = false
 
     var body: some View {
         ZStack {
@@ -52,9 +55,36 @@ struct ChoreDetailView: View {
                     }
                     .ajCard(padding: 18)
                     .padding(.horizontal, 16)
+
+                    Button(role: .destructive) {
+                        confirmingDelete = true
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "trash")
+                                .font(.system(size: 14, weight: .semibold))
+                            Text("Klus verwijderen")
+                                .font(AjetoFont.body(15, weight: .semibold))
+                        }
+                        .foregroundStyle(.red)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(Color.red.opacity(0.08), in: Capsule())
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
                 }
                 .padding(.vertical, 12)
             }
+        }
+        .confirmationDialog(
+            "Deze klus verwijderen?",
+            isPresented: $confirmingDelete,
+            titleVisibility: .visible
+        ) {
+            Button("Verwijderen", role: .destructive) { deleteChore() }
+            Button("Annuleer", role: .cancel) { }
+        } message: {
+            Text("De klus, foto's en eventuele notificatie worden verwijderd. Dit is niet terug te draaien.")
         }
         .navigationTitle(chore.title.isEmpty ? "Klus" : chore.title)
         .navigationBarTitleDisplayMode(.inline)
@@ -85,6 +115,19 @@ struct ChoreDetailView: View {
     /// automatisch opnieuw wordt aangemaakt na een edit.
     private var shareIdentity: String {
         "\(chore.title)|\(chore.details)|\(chore.photosList.count)|\(chore.scheduledStart?.timeIntervalSince1970 ?? 0)|\(chore.isDone)|\(chore.room?.name ?? "")"
+    }
+
+    private func deleteChore() {
+        NotificationService.cancel(for: chore)
+        for photo in chore.photosList {
+            if !photo.filename.isEmpty {
+                PhotoStorage.delete(photo.filename)
+            }
+            context.delete(photo)
+        }
+        context.delete(chore)
+        try? context.save()
+        dismiss()
     }
 }
 
