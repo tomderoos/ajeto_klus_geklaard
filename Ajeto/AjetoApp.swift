@@ -39,6 +39,7 @@ struct AjetoApp: App {
         seedDefaultRoomsIfNeeded(context, household: household)
         backfillHousehold(context, household: household)
         PhotoStorage.migrateInline(context: context)
+        HouseholdSyncEngine.shared.start(with: context)
     }
 
     /// Garandeer dat er altijd exact één "primair" huishouden bestaat waar

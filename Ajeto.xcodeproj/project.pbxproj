@@ -11,10 +11,12 @@
 		0425BE59BFB9D228484993C8 /* NameEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58CAA5CD1B71E6A85C3642 /* NameEntrySheet.swift */; };
 		07F6CA61E0E9015135A72894 /* RoomEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F38D677865D94AE9C553C /* RoomEditView.swift */; };
 		0F73C0EBDD5D3BB857C06F42 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219AEE555DA896EC2E5183CD /* OnboardingView.swift */; };
+		12417ECDC600CD7AA7BC3998 /* ChoreRecordCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961D6E3705C143A6F592BF31 /* ChoreRecordCoding.swift */; };
 		23A66242C885D6065A4D5B88 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A61D921A268BA6E564C15 /* NotificationService.swift */; };
 		24F7062E5CD151F1F1E8FF38 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04FBEF2E363477442D9F287 /* Chore.swift */; };
 		2578350AC92A7D718A474008 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFCB7588636BDE5183391F1 /* Person.swift */; };
 		2AC44950CBE874570254587C /* ChorePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF471C884A5AFAE8FE86E9F /* ChorePhoto.swift */; };
+		2CFFD4F0B9B92492BB58DA8A /* HouseholdSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EC4566ED8454DEA70AFA8C /* HouseholdSyncEngine.swift */; };
 		2D86457D7659FD9AE49CE4E2 /* AjetoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50156BA29EFAE15EAAC60EC5 /* AjetoTheme.swift */; };
 		42197D0978513AAB54C529CD /* RoomBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6166918D8F6FE5B44F757C6 /* RoomBadge.swift */; };
 		4497CA76E81924D6CD8525BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD39F4461869D9082D6BE36 /* Assets.xcassets */; };
@@ -81,10 +83,12 @@
 		81492068E487FE9C479E28F7 /* HouseholdSharingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseholdSharingService.swift; sourceTree = "<group>"; };
 		8E489305DC9140A49604C3F3 /* PhotoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStorage.swift; sourceTree = "<group>"; };
 		938545DDD0C69EE338DF3AF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		961D6E3705C143A6F592BF31 /* ChoreRecordCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRecordCoding.swift; sourceTree = "<group>"; };
 		98A8080EF61702A541139208 /* AjetoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjetoIcon.swift; sourceTree = "<group>"; };
 		99A9BA0F917D6110B026C93C /* Fredoka.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fredoka.ttf; sourceTree = "<group>"; };
 		9B1DC9AAF9C74FC04CF467F6 /* ChoreImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreImport.swift; sourceTree = "<group>"; };
 		9CCD16AFEF6AEB968CC69ED2 /* DedupMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DedupMigration.swift; sourceTree = "<group>"; };
+		A3EC4566ED8454DEA70AFA8C /* HouseholdSyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseholdSyncEngine.swift; sourceTree = "<group>"; };
 		A9D6AAAE8C3EBB20A7C49562 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		ABB8CE762A20C05B621FD9D1 /* PersonsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonsSheetView.swift; sourceTree = "<group>"; };
 		ADD39F4461869D9082D6BE36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -171,9 +175,19 @@
 				D458F4CAD6D5FA189F4C09FE /* Models */,
 				FD276DE652CD6563DB0BE23B /* Sharing */,
 				3F56B86216ABDFECB8BA84A7 /* Storage */,
+				BB1EDD5CA7AAFC11E5F2EBB8 /* Sync */,
 				131DFF976EE8912402350C4E /* Views */,
 			);
 			path = Ajeto;
+			sourceTree = "<group>";
+		};
+		BB1EDD5CA7AAFC11E5F2EBB8 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				961D6E3705C143A6F592BF31 /* ChoreRecordCoding.swift */,
+				A3EC4566ED8454DEA70AFA8C /* HouseholdSyncEngine.swift */,
+			);
+			path = Sync;
 			sourceTree = "<group>";
 		};
 		BCD99573CEB2E9A342D9F7DB /* Design */ = {
@@ -307,6 +321,7 @@
 				CE7703A5B11D91A10FF73B6B /* ChoreImport.swift in Sources */,
 				AF21FA28F0A9DA532DA47348 /* ChoreListView.swift in Sources */,
 				2AC44950CBE874570254587C /* ChorePhoto.swift in Sources */,
+				12417ECDC600CD7AA7BC3998 /* ChoreRecordCoding.swift in Sources */,
 				82CCC4F0E3E21B00F30A7123 /* ChoreSize.swift in Sources */,
 				A15005F1485E4AF64087D767 /* ChoreSnapshot.swift in Sources */,
 				EB50EC5D5AC3ECDD95F608F3 /* DedupMigration.swift in Sources */,
@@ -314,6 +329,7 @@
 				963FCF571EBFD8F6B94A5F78 /* HouseholdShareController.swift in Sources */,
 				E97579DE7ACA4395C8A9B6E3 /* HouseholdShareSheet.swift in Sources */,
 				B15F42E61D64CCB83CBDE81F /* HouseholdSharingService.swift in Sources */,
+				2CFFD4F0B9B92492BB58DA8A /* HouseholdSyncEngine.swift in Sources */,
 				9B445343AD35BEAA50F380CD /* ImportChorePreviewView.swift in Sources */,
 				0425BE59BFB9D228484993C8 /* NameEntrySheet.swift in Sources */,
 				23A66242C885D6065A4D5B88 /* NotificationService.swift in Sources */,

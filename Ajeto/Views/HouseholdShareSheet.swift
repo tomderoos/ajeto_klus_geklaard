@@ -134,6 +134,9 @@ struct HouseholdShareSheet: View {
                 let (share, container) = try await HouseholdSharingService.shared
                     .prepareShare(for: household)
                 await MainActor.run {
+                    // Push bestaande klussen naar de shared zone zodat
+                    // uitgenodigde huisgenoten ze straks zien.
+                    HouseholdSyncEngine.shared.migrateExistingRecords()
                     status = .ready
                     sharePayload = SharePayload(share: share, container: container)
                 }
