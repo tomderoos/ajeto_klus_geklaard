@@ -8,6 +8,11 @@ import SwiftData
 final class Household {
     var name: String = "Mijn huishouden"
     var createdAt: Date = Date.now
+    /// Stabiele identifier over app-launches en devices. Wordt gebruikt als
+    /// CKRecord.ID.recordName voor het gedeelde huishouden-record in
+    /// CloudKit; noodzakelijk zodat we bij een re-share hetzelfde record
+    /// updaten in plaats van een nieuwe aan te maken.
+    var stableID: String = UUID().uuidString
 
     @Relationship(deleteRule: .nullify, inverse: \Chore.household)
     var chores: [Chore]?

@@ -3,6 +3,8 @@ import SwiftData
 
 @main
 struct AjetoApp: App {
+    @UIApplicationDelegateAdaptor(AjetoAppDelegate.self) private var appDelegate
+
     let container: ModelContainer
 
     init() {

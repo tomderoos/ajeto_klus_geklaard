@@ -37,6 +37,7 @@ targets:
           - Nunito.ttf
         UIBackgroundModes:
           - remote-notification
+        CKSharingSupported: true
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         UISupportedInterfaceOrientations~ipad:

@@ -17,6 +17,7 @@ struct ChoreListView: View {
     @State private var showingNewRoom = false
     @State private var showingPersons = false
     @State private var showingOnboarding = false
+    @State private var showingHouseholdShare = false
     @State private var bulkShare: BulkSharePayload?
 
     private var filteredChores: [Chore] {
@@ -144,6 +145,12 @@ struct ChoreListView: View {
                         }
 
                         Button {
+                            showingHouseholdShare = true
+                        } label: {
+                            Label("Huisgenoot uitnodigen", systemImage: "person.crop.circle.badge.plus")
+                        }
+
+                        Button {
                             showingNameEditor = true
                         } label: {
                             Label("Naam wijzigen", systemImage: "person.text.rectangle")
@@ -198,6 +205,9 @@ struct ChoreListView: View {
             }
             .sheet(isPresented: $showingOnboarding) {
                 OnboardingView()
+            }
+            .sheet(isPresented: $showingHouseholdShare) {
+                HouseholdShareSheet()
             }
             .sheet(isPresented: $showingNameEditor) {
                 NameEntrySheet(mode: .change)
