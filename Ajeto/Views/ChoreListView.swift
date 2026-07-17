@@ -425,8 +425,7 @@ private struct ChoreRow: View {
             thumbnail
             VStack(alignment: .leading, spacing: 6) {
                 Text(chore.title.isEmpty ? "Zonder titel" : chore.title)
-                    .font(AjetoFont.display(17, weight: .bold))
-                    .tracking(-0.3)
+                    .font(AjetoFont.display(17, weight: .semibold))
                     .foregroundStyle(chore.isDone ? AjetoColor.muted : AjetoColor.ink)
                     .strikethrough(chore.isDone)
                 HStack(spacing: 6) {

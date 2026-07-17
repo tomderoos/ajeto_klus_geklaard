@@ -40,8 +40,7 @@ struct PersonEditView: View {
                     VStack(spacing: 12) {
                         PersonAvatar(person: previewPerson, size: 96)
                         Text(name.isEmpty ? "Zonder naam" : name)
-                            .font(AjetoFont.display(20, weight: .bold))
-                            .tracking(-0.3)
+                            .font(AjetoFont.display(20, weight: .semibold))
                             .foregroundStyle(AjetoColor.ink)
                     }
                     .padding(.top, 12)

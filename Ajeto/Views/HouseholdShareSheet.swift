@@ -74,22 +74,20 @@ struct HouseholdShareSheet: View {
 
     private var hero: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 32, style: .continuous)
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(AjetoColor.mint)
             Image(systemName: "person.2.badge.gearshape.fill")
-                .font(.system(size: 60, weight: .semibold))
+                .font(.system(size: 56, weight: .semibold))
                 .foregroundStyle(AjetoColor.greenInk)
         }
-        .frame(width: 132, height: 132)
-        .shadow(color: AjetoColor.greenInk.opacity(0.15), radius: 24, x: 0, y: 12)
+        .frame(width: 120, height: 120)
     }
 
     private var copy: some View {
         VStack(spacing: 12) {
-            Text("SAMEN KLUSSEN").ajEyebrow(AjetoColor.blue)
+            Text("Samen klussen").ajEyebrow()
             Text("Deel je huishouden")
-                .font(AjetoFont.display(24, weight: .bold))
-                .tracking(-0.4)
+                .font(AjetoFont.display(22, weight: .semibold))
                 .foregroundStyle(AjetoColor.ink)
                 .multilineTextAlignment(.center)
             Text("Nodig een huisgenoot uit via iMessage of Mail. Zij zien straks jullie klussen, ruimtes en projecten en kunnen ze afvinken.\n\nData van vóór deze uitnodiging blijft nog even alleen bij jou — de sync-migratie volgt in een aparte update.")
@@ -106,19 +104,18 @@ struct HouseholdShareSheet: View {
         } label: {
             HStack(spacing: 10) {
                 if status == .preparing {
-                    ProgressView().tint(AjetoColor.ink)
+                    ProgressView().tint(.white)
                 } else {
                     Image(systemName: "person.crop.circle.badge.plus")
-                        .font(.system(size: 16, weight: .bold))
+                        .font(.system(size: 16, weight: .semibold))
                 }
                 Text(status == .preparing ? "Voorbereiden…" : "Uitnodiging maken")
-                    .font(AjetoFont.display(16, weight: .bold))
+                    .font(AjetoFont.display(16, weight: .semibold))
             }
-            .foregroundStyle(AjetoColor.ink)
+            .foregroundStyle(.white)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
+            .padding(.vertical, 14)
             .background(AjetoColor.green, in: Capsule())
-            .shadow(color: AjetoColor.green.opacity(0.35), radius: 18, x: 0, y: 10)
         }
         .disabled(status == .preparing)
     }

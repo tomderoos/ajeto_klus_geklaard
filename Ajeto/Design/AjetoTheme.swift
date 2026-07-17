@@ -21,20 +21,22 @@ enum AjetoColor {
 }
 
 enum AjetoRadius {
-    static let sm: CGFloat = 12
-    static let md: CGFloat = 18
-    static let lg: CGFloat = 24
+    static let sm: CGFloat = 10
+    static let md: CGFloat = 14
+    static let lg: CGFloat = 16
     static let iconRatio: CGFloat = 0.28
 }
 
 enum AjetoShadow {
+    // Zeer subtiel — geeft nog net lift tegen de paper-achtergrond, maar
+    // niet meer de zware drop-shadow uit huisstijl 1c.
     static let card = Shadow(
-        color: Color(hex: 0x10171C).opacity(0.10),
-        radius: 35, x: 0, y: 15
+        color: Color(hex: 0x10171C).opacity(0.05),
+        radius: 6, x: 0, y: 2
     )
     static let green = Shadow(
-        color: AjetoColor.green.opacity(0.35),
-        radius: 18, x: 0, y: 10
+        color: AjetoColor.green.opacity(0.12),
+        radius: 6, x: 0, y: 3
     )
 
     struct Shadow {
@@ -46,24 +48,22 @@ enum AjetoShadow {
 }
 
 enum AjetoFont {
-    // Huisstijl 1c: Fredoka (rond, vriendelijk) voor koppen en logo,
-    // Nunito (helder, breed weight-range) voor body en UI-tekst.
-    static let displayFamily = "Fredoka"
-    static let bodyFamily    = "Nunito"
-
-    static func display(_ size: CGFloat, weight: Font.Weight = .bold) -> Font {
-        .custom(displayFamily, size: size).weight(weight)
+    // SF Pro via SwiftUI's default systeem-font. Geen custom font-file meer
+    // nodig — snellere textinput, geen render-lag. `display` en `body`
+    // blijven bestaan zodat views niet aangeraakt hoeven te worden; het
+    // onderscheid zit alleen nog in default weight.
+    static func display(_ size: CGFloat, weight: Font.Weight = .semibold) -> Font {
+        .system(size: size, weight: weight)
     }
 
     static func body(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        .custom(bodyFamily, size: size).weight(weight)
+        .system(size: size, weight: weight)
     }
 }
 
 extension View {
     func ajTitle() -> some View {
-        self.font(AjetoFont.display(28, weight: .bold))
-            .tracking(-0.6)
+        self.font(AjetoFont.display(26, weight: .semibold))
             .foregroundStyle(AjetoColor.ink)
     }
 
@@ -82,9 +82,9 @@ extension View {
             .foregroundStyle(color)
     }
 
-    func ajEyebrow(_ color: Color = AjetoColor.blue) -> some View {
-        self.font(AjetoFont.display(11, weight: .medium))
-            .tracking(1.7)
+    func ajEyebrow(_ color: Color = AjetoColor.muted) -> some View {
+        self.font(AjetoFont.body(11, weight: .medium))
+            .tracking(0.8)
             .textCase(.uppercase)
             .foregroundStyle(color)
     }

@@ -25,8 +25,7 @@ struct BulkShareSheet: View {
 
                     VStack(spacing: 8) {
                         Text("\(payload.count) klussen gebundeld")
-                            .font(AjetoFont.display(24, weight: .bold))
-                            .tracking(-0.5)
+                            .font(AjetoFont.display(22, weight: .semibold))
                             .foregroundStyle(AjetoColor.ink)
                             .multilineTextAlignment(.center)
                         Text("Momentopname van \(exportedAtText)")
@@ -38,15 +37,14 @@ struct BulkShareSheet: View {
                     ShareLink(item: payload.url, subject: Text("Ajeto klussen (\(payload.count))")) {
                         HStack(spacing: 10) {
                             Image(systemName: "square.and.arrow.up")
-                                .font(.system(size: 16, weight: .bold))
+                                .font(.system(size: 16, weight: .semibold))
                             Text("Delen")
-                                .font(AjetoFont.display(16, weight: .bold))
+                                .font(AjetoFont.display(16, weight: .semibold))
                         }
-                        .foregroundStyle(AjetoColor.ink)
+                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
+                        .padding(.vertical, 14)
                         .background(AjetoColor.green, in: Capsule())
-                        .shadow(color: AjetoColor.green.opacity(0.35), radius: 18, x: 0, y: 10)
                     }
                     .padding(.horizontal, 16)
 

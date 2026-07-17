@@ -201,7 +201,6 @@ private struct ProjectChoreRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(chore.title.isEmpty ? "Zonder titel" : chore.title)
                     .font(AjetoFont.display(15, weight: .semibold))
-                    .tracking(-0.2)
                     .foregroundStyle(chore.isDone ? AjetoColor.muted : AjetoColor.ink)
                     .strikethrough(chore.isDone)
                 if let room = chore.room {

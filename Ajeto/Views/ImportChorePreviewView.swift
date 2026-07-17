@@ -84,8 +84,7 @@ private struct SingleContent: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(snapshot.title.isEmpty ? "Zonder titel" : snapshot.title)
-                .font(AjetoFont.display(26, weight: .bold))
-                .tracking(-0.6)
+                .font(AjetoFont.display(24, weight: .semibold))
                 .foregroundStyle(AjetoColor.ink)
 
             if let roomName = snapshot.roomName {
@@ -208,7 +207,7 @@ private struct SummaryCard: View {
         HStack(spacing: 14) {
             AjetoBrandIcon(size: 56)
             VStack(alignment: .leading, spacing: 4) {
-                Text("\(bundle.chores.count) klussen").font(AjetoFont.display(20, weight: .bold)).tracking(-0.4)
+                Text("\(bundle.chores.count) klussen").font(AjetoFont.display(19, weight: .semibold))
                     .foregroundStyle(AjetoColor.ink)
                 Text(counts).ajCaption()
             }
@@ -237,7 +236,6 @@ private struct BundleRow: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(snapshot.title.isEmpty ? "Zonder titel" : snapshot.title)
                     .font(AjetoFont.display(15, weight: .semibold))
-                    .tracking(-0.2)
                     .foregroundStyle(AjetoColor.ink)
                 HStack(spacing: 8) {
                     if let roomName = snapshot.roomName {

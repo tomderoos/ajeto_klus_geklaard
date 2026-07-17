@@ -72,17 +72,16 @@ struct OnboardingView: View {
         } label: {
             HStack(spacing: 8) {
                 Text(isLast ? "Volgende stap" : "Volgende")
-                    .font(AjetoFont.display(16, weight: .bold))
+                    .font(AjetoFont.display(16, weight: .semibold))
                 if !isLast {
                     Image(systemName: "arrow.right")
-                        .font(.system(size: 14, weight: .bold))
+                        .font(.system(size: 14, weight: .semibold))
                 }
             }
-            .foregroundStyle(AjetoColor.ink)
+            .foregroundStyle(.white)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
+            .padding(.vertical, 14)
             .background(AjetoColor.green, in: Capsule())
-            .shadow(color: AjetoColor.green.opacity(0.35), radius: 18, x: 0, y: 10)
         }
     }
 }
@@ -97,10 +96,9 @@ private struct SlideView: View {
             slideHero
 
             VStack(spacing: 12) {
-                Text(slide.eyebrow).ajEyebrow(AjetoColor.blue)
+                Text(slide.eyebrow).ajEyebrow()
                 Text(slide.title)
-                    .font(AjetoFont.display(28, weight: .bold))
-                    .tracking(-0.6)
+                    .font(AjetoFont.display(26, weight: .semibold))
                     .foregroundStyle(AjetoColor.ink)
                     .multilineTextAlignment(.center)
                 Text(slide.body)
@@ -122,14 +120,13 @@ private struct SlideView: View {
             AjetoBrandIcon(size: 132, glow: true)
         case .symbol(let name, let bg, let fg):
             ZStack {
-                RoundedRectangle(cornerRadius: 32, style: .continuous)
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
                     .fill(bg)
                 Image(systemName: name)
-                    .font(.system(size: 60, weight: .semibold))
+                    .font(.system(size: 56, weight: .semibold))
                     .foregroundStyle(fg)
             }
-            .frame(width: 132, height: 132)
-            .shadow(color: fg.opacity(0.15), radius: 24, x: 0, y: 12)
+            .frame(width: 120, height: 120)
         }
     }
 }
@@ -147,13 +144,13 @@ private struct OnboardingSlide {
 
     static let all: [OnboardingSlide] = [
         OnboardingSlide(
-            eyebrow: "WELKOM",
+            eyebrow: "Welkom",
             title: "Ajeto!",
             body: "Houd bij wat er in en om het huis moet gebeuren, van 'lampje vervangen' tot 'zolder opknappen'. Vink af wat je hebt gedaan.",
             visual: .brandIcon
         ),
         OnboardingSlide(
-            eyebrow: "01 · KLUSSEN",
+            eyebrow: "01 · Klussen",
             title: "Klus geklaard, met foto's",
             body: "Maak een klus aan met titel, beschrijving, en foto's van voor en na. Plan een start- en eindtijd als je 'm inplant.",
             visual: .symbol("checkmark.circle.fill",
@@ -161,7 +158,7 @@ private struct OnboardingSlide {
                             foreground: AjetoColor.greenInk)
         ),
         OnboardingSlide(
-            eyebrow: "02 · ORGANISEER",
+            eyebrow: "02 · Organiseer",
             title: "Ruimtes en projecten",
             body: "Groepeer klussen per ruimte (Woonkamer, Tuin, WC…) of vat ze samen tot een project (Zolder opknappen, Huis verkoop klaar maken). Filter met één tik.",
             visual: .symbol("square.stack.3d.up.fill",
@@ -169,7 +166,7 @@ private struct OnboardingSlide {
                             foreground: AjetoColor.blue)
         ),
         OnboardingSlide(
-            eyebrow: "03 · SAMEN",
+            eyebrow: "03 · Samen",
             title: "Verdeel het werk",
             body: "Voeg jezelf en huisgenoten toe als personen en wijs ze toe aan klussen. In Planning filter je op één persoon om te zien wat jij vandaag moet doen.",
             visual: .symbol("person.2.fill",
@@ -177,7 +174,7 @@ private struct OnboardingSlide {
                             foreground: AjetoColor.greenInk)
         ),
         OnboardingSlide(
-            eyebrow: "04 · SYNC & DELEN",
+            eyebrow: "04 · Sync & delen",
             title: "Overal je klussen",
             body: "Klussen syncen automatisch tussen jouw Apple-apparaten via iCloud. Deel een enkele klus of je hele lijst met iemand anders via de deel-knop.",
             visual: .symbol("icloud.fill",

@@ -94,8 +94,7 @@ private struct ProjectRow: View {
             icon
             VStack(alignment: .leading, spacing: 6) {
                 Text(project.name.isEmpty ? "Zonder titel" : project.name)
-                    .font(AjetoFont.display(17, weight: .bold))
-                    .tracking(-0.3)
+                    .font(AjetoFont.display(17, weight: .semibold))
                     .foregroundStyle(project.isCompleted ? AjetoColor.muted : AjetoColor.ink)
                     .strikethrough(project.isCompleted)
                 metaLine

@@ -166,7 +166,6 @@ private struct ScheduledRow: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(chore.title.isEmpty ? "Zonder titel" : chore.title)
                     .font(AjetoFont.display(16, weight: .semibold))
-                    .tracking(-0.3)
                     .foregroundStyle(chore.isDone ? AjetoColor.muted : AjetoColor.ink)
                     .strikethrough(chore.isDone)
                 if let room = chore.room {

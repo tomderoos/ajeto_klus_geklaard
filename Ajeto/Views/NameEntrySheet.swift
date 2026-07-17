@@ -70,16 +70,14 @@ struct NameEntrySheet: View {
                 .foregroundStyle(AjetoColor.greenInk)
         }
         .frame(width: 96, height: 96)
-        .shadow(color: AjetoColor.greenInk.opacity(0.12), radius: 20, x: 0, y: 12)
     }
 
     private var copy: some View {
         VStack(spacing: 10) {
-            Text(mode == .introduction ? "NOG EEN LAATSTE DING" : "JOUW VOORNAAM")
-                .ajEyebrow(AjetoColor.blue)
+            Text(mode == .introduction ? "Nog een laatste ding" : "Jouw voornaam")
+                .ajEyebrow()
             Text("Wat is je voornaam?")
-                .font(AjetoFont.display(24, weight: .bold))
-                .tracking(-0.4)
+                .font(AjetoFont.display(22, weight: .semibold))
                 .foregroundStyle(AjetoColor.ink)
                 .multilineTextAlignment(.center)
             Text("Zo herkennen huisgenoten je en kun je klussen aan jezelf toewijzen.")
@@ -113,12 +111,11 @@ struct NameEntrySheet: View {
             commitAndDismiss()
         } label: {
             Text(mode == .introduction ? "Aan de slag" : "Bewaar")
-                .font(AjetoFont.display(16, weight: .bold))
-                .foregroundStyle(canSave ? AjetoColor.ink : AjetoColor.muted)
+                .font(AjetoFont.display(16, weight: .semibold))
+                .foregroundStyle(canSave ? .white : AjetoColor.muted)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
+                .padding(.vertical, 14)
                 .background(canSave ? AjetoColor.green : AjetoColor.border, in: Capsule())
-                .shadow(color: canSave ? AjetoColor.green.opacity(0.35) : .clear, radius: 18, x: 0, y: 10)
         }
         .disabled(!canSave)
     }
